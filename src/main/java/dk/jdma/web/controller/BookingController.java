@@ -1,9 +1,5 @@
 package dk.jdma.web.controller;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import dk.jdma.web.domain.*;
 import dk.jdma.web.repository.BookingRepository;
 import dk.jdma.web.repository.DestinationRepository;
@@ -13,14 +9,23 @@ import dk.jdma.web.web.AddPersonForm;
 import dk.jdma.web.web.BookingForm;
 import dk.jdma.web.web.FinishForm;
 import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 public class BookingController {
+
+    Logger logger =  LoggerFactory.getLogger(BookingController.class);
 
     @Autowired
     PersonRepository personRepository;
@@ -85,7 +90,13 @@ public class BookingController {
     }
 
     @RequestMapping(value = "/book.html", method = RequestMethod.POST)
-    public ModelAndView book(@ModelAttribute BookingForm bookingForm) {
+    public ModelAndView book(@ModelAttribute @Validated BookingForm bookingForm, BindingResult result) {
+        if (result.hasErrors()) {
+            ModelAndView model = home();
+            model.addObject(bookingForm);
+            logger.debug(model.toString());
+            return model;
+        }
         String[] data = bookingForm.getKayakName().split(" ");
         Kayak kayak = kayakRepository.findByLocation(data[0]);
         Person person = personRepository.findByName(bookingForm.getPersonName());

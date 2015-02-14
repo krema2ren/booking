@@ -19,15 +19,15 @@
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#"></a>
-        </div>
+        <%--<div class="navbar-header">--%>
+            <%--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">--%>
+                <%--<span class="sr-only">Toggle navigation</span>--%>
+                <%--<span class="icon-bar"></span>--%>
+                <%--<span class="icon-bar"></span>--%>
+                <%--<span class="icon-bar"></span>--%>
+            <%--</button>--%>
+            <%--<a class="navbar-brand" href="#"></a>--%>
+        <%--</div>--%>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -52,13 +52,41 @@
                                     <form:input type="text" class="form-control" id="w-input-name" placeholder="Navn" path="personName"/>
                                 </div>
                             </div>
+
+                            <%--<c:choose>--%>
+                                <%--<c:when test="${status.error}">--%>
+                                    <%--<div class="form-group has-error">--%>
+                                <%--</c:when>--%>
+                                <%--<c:otherwise>--%>
+                                    <%--<div class="form-group">--%>
+                                <%--</c:otherwise>--%>
+                            <%--</c:choose>--%>
                             <div class="form-group">
                                 <div style="width: 310px;">
+
                                     <form:input type="text" class="form-control" id="w-input-trip" placeholder="Rejsemål" path="destination"/>
+
                                 </div>
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary" id="book">Start</button>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <div class="form-group">
+                                <div style="width: 310px;">
+                                    <form:errors class="alert alert-danger alert-dismissable" role="alert" path="kayakName" element="div"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div style="width: 310px;">
+                                    <form:errors class="alert alert-danger alert-dismissable" role="alert" path="personName" element="div"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div style="width: 310px;">
+                                    <form:errors class="alert alert-danger alert-dismissable" role="alert" path="destination" element="div"/>
+                                </div>
                             </div>
                         </fieldset>
                     </form:form>
@@ -196,7 +224,6 @@
 </div>
 </div>
 
-
 <div class="panel-footer text-center">&copy; 2015 K&#248;ge Kano &amp; Kajak Klub</div>
 
 <script>
@@ -257,12 +284,14 @@ $(document).ready(function() {
 
 
     $('#addPersonModal').on('show.bs.modal', function(event) {
+        $("#addPersonModalName").select();
         $("#addPersonModalBookingId").val($(event.relatedTarget).data('booking-id'));
     });
 
     $('#finishModal').on('show.bs.modal', function(event) {
+        $("#finishModalDistanceId").select();
+        $("#finishModalDistanceId").focus();
         $("#finishModalDistanceId").val($(event.relatedTarget).data('distance-id'));
-//        $("#finishModalDistanceId").val($(event.relatedTarget).focus();
         $("#finishModalBookingId").val($(event.relatedTarget).data('booking-id'));
     });
 

@@ -4,13 +4,13 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class BookingForm {
 
-    @NotEmpty
+    @NotEmpty(message = "Du skal vælge en kajak.")
     private String kayakName;
 
-    @NotEmpty
+    @NotEmpty(message = "Du skal vælge et navn.")
     private String personName;
 
-    @NotEmpty
+    @NotEmpty(message = "Du skal vælge en destination.")
     private String destination;
 
     public BookingForm() {

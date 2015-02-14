@@ -125,7 +125,7 @@
             <div class="form-group">
                 <label class="control-label">Navn</label>
                 <div class="col-sm-18">
-                    <form:input type="text" class="form-control" id="name" placeholder="Navn" path="person.name" autofocus />
+                    <form:input type="text" class="form-control" id="name" placeholder="Navn" path="person.name" />
                 </div>
             </div>
             <div class="form-group">
