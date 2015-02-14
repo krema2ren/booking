@@ -114,7 +114,7 @@ public class Booking implements Serializable {
         for(Person p : persons) {
             s = s + p.getName() + "<br/>";
         }
-        return   "<p align=\"left\"><u><b>" + bookingDate.toString(DateTimeFormat.forPattern("HH:mm")) + " - " + returnDate.toString(DateTimeFormat.forPattern("HH:mm")) + " : " + destination.getName() + "</b></u><br/>" + s + "<sub>" + kayak.getTagName() + "</sub></p>";
+        return   "<p align=\"left\"><u><b>" + bookingDate.toString(DateTimeFormat.forPattern("dd/MM HH:mm")) + " - " + returnDate.toString(DateTimeFormat.forPattern("HH:mm")) + " : " + destination.getName() + "</b></u><br/>" + s + "<sub>" + kayak.getTagName() + "<br/><br/><br/>Distance : " + (distance == null ? "-" : distance) + " km</sub></p>";
     }
 
     @Override

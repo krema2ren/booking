@@ -1,9 +1,16 @@
 package dk.jdma.web.web;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class BookingForm {
 
+    @NotEmpty
     private String kayakName;
+
+    @NotEmpty
     private String personName;
+
+    @NotEmpty
     private String destination;
 
     public BookingForm() {

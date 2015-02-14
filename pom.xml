@@ -222,6 +222,15 @@
             <version>4.3.0.Final</version>
         </dependency>
 
+        <!--&lt;!&ndash; Tomcat &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.tomcat</groupId>-->
+            <!--<artifactId>tomcat-servlet-api</artifactId>-->
+            <!--<version>7.0.30</version>-->
+            <!--<scope>provided</scope>-->
+        <!--</dependency>-->
+
+
         <!-- Joda -->
         <dependency>
             <groupId>joda-time</groupId>
@@ -255,6 +264,13 @@
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>${ch.qos.logback-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.0.1</version>
+            <scope>provided</scope>
         </dependency>
 
     </dependencies>

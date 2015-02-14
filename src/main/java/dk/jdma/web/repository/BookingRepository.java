@@ -18,7 +18,4 @@ public interface BookingRepository extends CrudRepository<Booking, Long> {
 
     List<Booking> findByPersons(List<Person> persons);
 
-//    @Query("select b from Booking_Person b where b.persons)
-//    List<Booking> findBookingsByPerson(@Param("id") Long id);
-
 }

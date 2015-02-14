@@ -134,7 +134,7 @@ public class BookingController {
 	private List<Tag> filter(String tagName, List<Tag> list) {
 		List<Tag> result = new ArrayList<Tag>();
 		for (Tag tag : list) {
-			if (tag.getTagName().contains(tagName)) {
+			if (tag.getTagName().toLowerCase().contains(tagName.toLowerCase())) {
 				result.add(tag);
 			}
 		}

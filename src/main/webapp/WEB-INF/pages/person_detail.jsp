@@ -63,43 +63,98 @@
     </div>
 </nav>
 
+
+<div class="col-md-12">
+    <div class="row">
+        <div class="col-sm-2">
+            <div class="btn-group">
+                <c:choose>
+                    <c:when test="${birthYear > 1997}">
+                        <a role="button" data-toggle="modal" data-target="#editPersonModal" class="btn-fixed-width-booking btn btn-success">${person}</a>
+                    </c:when>
+                    <c:when test="${birthYear < 1954}">
+                        <a role="button" data-toggle="modal" data-target="#editPersonModal" class="btn-fixed-width-booking btn btn-warning">${person}</a>
+                    </c:when>
+                    <c:otherwise>
+                        <a role="button" data-toggle="modal" data-target="#editPersonModal" class="btn-fixed-width-booking btn btn-primary">${person}</a>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+        </div>
+        <div class="col-sm-2">
+        </div>
+        <div class="col-sm-2">
+            <!----------------------->
+            <!-- Show all bookings -->
+            <!----------------------->
+            <div class="container-fluid col-lg-offset-1">
+                <c:forEach items="${bookings}" var="booking">
+                    <div class="btn-group">
+                        <c:choose>
+                            <c:when test="${fn:containsIgnoreCase(booking.kayak.type, 'kap')}">
+                                <button type="button"  class="btn-fixed-width-booking btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">${booking}</button>
+                            </c:when>
+                            <c:when test="${fn:containsIgnoreCase(booking.kayak.type, 'hav')}">
+                                <button type="button"  class="btn-fixed-width-booking btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">${booking}</button>
+                            </c:when>
+                            <c:otherwise>
+                                <button type="button"  class="btn-fixed-width-booking btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">${booking}</button>
+                            </c:otherwise>
+                        </c:choose>
+                        <ul class="dropdown-menu" role="menu">
+                            <%--<li><a data-toggle="modal" data-target="#finishModal" data-booking-id="${booking.id}">Afslut</a></li>--%>
+                            <%--<c:if test="${booking.kayak.seats > fn:length(booking.persons)}">--%>
+                                <%--<li><a data-toggle="modal" data-target="#addPersonModal" data-booking-id="${booking.id}">Tilføj Person</a></li>--%>
+                            <%--</c:if>--%>
+                            <li><a href="edit_booking.html?id=${booking.id}">>Redigér</a></li>
+                            <li class="divider"></li>
+                            <li><a href="delete_booking.html?id=${booking.id}">Slet</a></li>
+                        </ul>
+                    </div>
+                </c:forEach>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 <%--<h4 class="col-lg-12">Person Oplysninger</h4>--%>
-<div class="col-lg-4">
-    <form:form class="form-horizontal" method="POST" action="/save_person.html" commandName="editPersonForm">
-        <fieldset>
+<div class="modal fade" id="editPersonModal" aria-hidden="true">
+    <form:form class="form-narrow form-horizontal" method="POST" action="/save_person.html" commandName="editPersonForm">
+        <fieldset class="">
             <div class="form-group">
-                <label class="col-lg-2 control-label">Navn</label>
-                <div class="col-lg-10">
-                    <form:input type="text" class="form-control" id="name" placeholder="Navn" path="person.name"/>
+                <label class="control-label">Navn</label>
+                <div class="col-sm-18">
+                    <form:input type="text" class="form-control" id="name" placeholder="Navn" path="person.name" autofocus />
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-2 control-label">Addresse</label>
-                <div class="col-lg-10">
+                <label class="control-label">Addresse</label>
+                <div class="col-sm-18">
                     <form:input type="text" class="form-control" id="address" placeholder="Vejnavn Husnummer, Postnummer By" path="person.address"/>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-2 control-label">Mobil</label>
-                <div class="col-lg-10">
+                <label class="control-label">Mobil</label>
+                <div class="col-sm-18">
                     <form:input type="text" class="form-control" id="mobile" placeholder="Mobil" path="person.mobile"/>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-2 control-label">Telefon</label>
-                <div class="col-lg-10">
+                <label class="control-label">Telefon</label>
+                <div class="col-sm-18">
                     <form:input type="text" class="form-control" id="phone" placeholder="Telefon" path="person.phone"/>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-2 control-label">Mail</label>
-                <div class="col-lg-10">
+                <label class="control-label">Mail</label>
+                <div class="col-sm-18">
                     <form:input type="text" class="form-control" id="mail" placeholder="Mail" path="person.email"/>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-2 control-label">Fødselsdag</label>
-                <div class="col-lg-10">
+                <label class="control-label">Fødselsdag</label>
+                <div class="col-sm-18">
                     <form:input type="text" class="form-control" id="dayOfBirth" placeholder="YYYY-MM-DD" path="person.dayOfBirth"/>
                 </div>
             </div>
@@ -119,36 +174,6 @@
 </div>
 
 
-<h4>Reservationer</h4>
-<!----------------------->
-<!-- Show all bookings -->
-<!----------------------->
-<div class="container-fluid col-lg-offset-1">
-    <c:forEach items="${bookings}" var="booking">
-        <div class="btn-group">
-            <c:choose>
-                <c:when test="${fn:containsIgnoreCase(booking.kayak.type, 'kap')}">
-                    <button type="button"  class="btn-fixed-width-booking btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">${booking}</button>
-                </c:when>
-                <c:when test="${fn:containsIgnoreCase(booking.kayak.type, 'hav')}">
-                    <button type="button"  class="btn-fixed-width-booking btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">${booking}</button>
-                </c:when>
-                <c:otherwise>
-                    <button type="button"  class="btn-fixed-width-booking btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">${booking}</button>
-                </c:otherwise>
-            </c:choose>
-            <ul class="dropdown-menu" role="menu">
-                <li><a data-toggle="modal" data-target="#finishModal" data-booking-id="${booking.id}">Afslut</a></li>
-                <c:if test="${booking.kayak.seats > fn:length(booking.persons)}">
-                    <li><a data-toggle="modal" data-target="#addPersonModal" data-booking-id="${booking.id}">Tilføj Person</a></li>
-                </c:if>
-                <li><a href="#">Redigér</a></li>
-                <li class="divider"></li>
-                <li><a href="delete_booking.html?id=${booking.id}">Slet</a></li>
-            </ul>
-        </div>
-    </c:forEach>
-</div>
 
 
 

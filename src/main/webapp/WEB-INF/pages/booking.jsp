@@ -58,7 +58,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-default" id="book">Start</button>
+                                <button type="submit" class="btn btn-primary" id="book">Start</button>
                             </div>
                         </fieldset>
                     </form:form>
@@ -262,6 +262,7 @@ $(document).ready(function() {
 
     $('#finishModal').on('show.bs.modal', function(event) {
         $("#finishModalDistanceId").val($(event.relatedTarget).data('distance-id'));
+//        $("#finishModalDistanceId").val($(event.relatedTarget).focus();
         $("#finishModalBookingId").val($(event.relatedTarget).data('booking-id'));
     });
 

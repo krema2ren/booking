@@ -20,6 +20,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -63,7 +65,28 @@ public class PersonController {
     }
 
     @RequestMapping(value = "/person_detail.html", method = RequestMethod.GET)
-    public ModelAndView personDetail(@RequestParam(value="id",required = true) String id, @ModelAttribute EditPersonForm editPersonForm) {
+         public ModelAndView personDetail(@RequestParam(value="id",required = true) String id, @ModelAttribute EditPersonForm editPersonForm) {
+        ModelAndView mv = new ModelAndView("person_detail");
+        Person person = personRepository.findOne(Long.parseLong(id));
+        editPersonForm.setPerson(person);
+        mv.getModelMap().addAttribute("editPersonForm",editPersonForm);
+        List<Person> persons = new ArrayList<Person>();
+        persons.add(person);
+        List<Booking> bookings = bookingRepository.findByPersons(persons);
+        Collections.sort(bookings, new Comparator<Booking>() {
+            @Override
+            public int compare(Booking b1, Booking b2) {
+                return b1.getBookingDate().compareTo(b2.getBookingDate());
+            }
+        });
+        Collections.reverse(bookings);
+        mv.getModelMap().addAttribute("bookings", bookings);
+        mv.getModelMap().addAttribute("person", person);
+        return mv;
+    }
+
+    @RequestMapping(value = "/edit_person.html", method = RequestMethod.GET)
+    public ModelAndView editPerson(@RequestParam(value="id",required = true) String id, @ModelAttribute EditPersonForm editPersonForm) {
         ModelAndView mv = new ModelAndView("person_detail");
         Person person = personRepository.findOne(Long.parseLong(id));
         editPersonForm.setPerson(person);
@@ -72,9 +95,8 @@ public class PersonController {
         persons.add(person);
         List<Booking> bookings = bookingRepository.findByPersons(persons);
         mv.getModelMap().addAttribute("bookings", bookings);
-
-
         return mv;
     }
+
 
 }
