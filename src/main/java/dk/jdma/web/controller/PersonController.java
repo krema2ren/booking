@@ -65,11 +65,11 @@ public class PersonController {
     }
 
     @RequestMapping(value = "/person_detail.html", method = RequestMethod.GET)
-         public ModelAndView personDetail(@RequestParam(value="id",required = true) String id, @ModelAttribute EditPersonForm editPersonForm) {
+         public ModelAndView personDetail(@RequestParam(value="id",required = true) String id, @RequestParam(value="filter", required = false) String filter, @ModelAttribute EditPersonForm editPersonForm) {
         ModelAndView mv = new ModelAndView("person_detail");
         Person person = personRepository.findOne(Long.parseLong(id));
         editPersonForm.setPerson(person);
-        mv.getModelMap().addAttribute("editPersonForm",editPersonForm);
+        mv.addObject(editPersonForm);
         List<Person> persons = new ArrayList<Person>();
         persons.add(person);
         List<Booking> bookings = bookingRepository.findByPersons(persons);
@@ -80,8 +80,11 @@ public class PersonController {
             }
         });
         Collections.reverse(bookings);
-        mv.getModelMap().addAttribute("bookings", bookings);
-        mv.getModelMap().addAttribute("person", person);
+        mv.addObject(bookings);
+        mv.addObject(person);
+        FilterForm filterForm = new FilterForm();
+        filterForm.setFilter(filter != null ? filter : "");
+        mv.addObject(filterForm);
         return mv;
     }
 
@@ -90,7 +93,7 @@ public class PersonController {
         ModelAndView mv = new ModelAndView("person_detail");
         Person person = personRepository.findOne(Long.parseLong(id));
         editPersonForm.setPerson(person);
-        mv.getModelMap().addAttribute("editPersonForm",editPersonForm);
+        mv.getModelMap().addAttribute("editPersonForm", editPersonForm);
         List<Person> persons = new ArrayList<Person>();
         persons.add(person);
         List<Booking> bookings = bookingRepository.findByPersons(persons);
@@ -98,5 +101,24 @@ public class PersonController {
         return mv;
     }
 
+    @RequestMapping(value = "/save_person.html", method = RequestMethod.POST)
+    public ModelAndView savePerson(@ModelAttribute EditPersonForm editPersonForm, @RequestParam(value="filter",required = true) String filter) {
+        Person person = personRepository.findOne(editPersonForm.getPerson().getId());
+        if(person != null) {
+            person.setAddress(editPersonForm.getPerson().getAddress());
+            person.setEmail(editPersonForm.getPerson().getEmail());
+            person.setName(editPersonForm.getPerson().getName());
+            person.setMobile(editPersonForm.getPerson().getMobile());
+            person.setDayOfBirth(editPersonForm.getPerson().getDayOfBirth());
+            person.setPhone(editPersonForm.getPerson().getPhone());
+            person.setCreated(editPersonForm.getPerson().getCreated());
+            person.setFacebookProfileId(editPersonForm.getPerson().getFacebookProfileId());
+            person.setFemale(editPersonForm.getPerson().isFemale());
+            person.setFlatwaterLevel(editPersonForm.getPerson().getFlatwaterLevel());
+            person.setOpenwaterLevel(editPersonForm.getPerson().getOpenwaterLevel());
+            personRepository.save(person);
+        }
+        return new ModelAndView(new RedirectView("/booking/persons?filter=" + filter));
+    }
 
 }

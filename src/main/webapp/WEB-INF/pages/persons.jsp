@@ -75,13 +75,13 @@
         <div class="btn-group">
             <c:choose>
                 <c:when test="${birthYear > 1997}">
-                    <a role="button" href="person_detail.html?id=${person.id}" class="btn-fixed-width-booking btn btn-success">${person}</a>
+                    <a role="button" href="person_detail.html?id=${person.id}&filter=${filterForm.filter}" class="btn-fixed-width-booking btn btn-success">${person}</a>
                 </c:when>
                 <c:when test="${birthYear < 1954}">
-                    <a role="button" href="person_detail.html?id=${person.id}" class="btn-fixed-width-booking btn btn-warning">${person}</a>
+                    <a role="button" href="person_detail.html?id=${person.id}&filter=${filterForm.filter}" class="btn-fixed-width-booking btn btn-warning">${person}</a>
                 </c:when>
                 <c:otherwise>
-                    <a role="button" href="person_detail.html?id=${person.id}" class="btn-fixed-width-booking btn btn-primary">${person}</a>
+                    <a role="button" href="person_detail.html?id=${person.id}&filter=${filterForm.filter}" class="btn-fixed-width-booking btn btn-primary">${person}</a>
                 </c:otherwise>
             </c:choose>
         </div>

@@ -118,46 +118,97 @@
     </div>
 </div>
 
-<%--<h4 class="col-lg-12">Person Oplysninger</h4>--%>
-<div class="modal fade" id="editPersonModal" aria-hidden="true">
-    <form:form class="form-narrow form-horizontal" method="POST" action="/save_person.html" commandName="editPersonForm">
-        <fieldset class="">
-            <div class="form-group">
-                <label class="control-label">Navn</label>
-                <div class="col-sm-18">
+
+
+
+<div class="modal" id="editPersonModal" >
+    <form:form method="POST" action="/save_person.html?filter=${filterForm.filter}" commandName="editPersonForm" cssClass="form-narrow form-horizontal">
+        <div class="modal-header">
+            <a href="#" data-dismiss="modal" aria-hidden="true" class="close">×</a>
+            <h3>Person Oplysninger</h3>
+        </div>
+
+        <div class="modal-body">
+            <div class="control-group">
+                <label class="control-label" for="name">Navn</label>
+                <div class="controls">
                     <form:input type="text" class="form-control" id="name" placeholder="Navn" path="person.name" />
                 </div>
             </div>
-            <div class="form-group">
-                <label class="control-label">Addresse</label>
-                <div class="col-sm-18">
+
+            <div class="control-group">
+                <label class="control-label" for="address">Addresse</label>
+                <div class="controls">
                     <form:input type="text" class="form-control" id="address" placeholder="Vejnavn Husnummer, Postnummer By" path="person.address"/>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="control-label">Mobil</label>
-                <div class="col-sm-18">
+
+            <div class="control-group">
+                <label class="control-label" for="mobile">Mobil</label>
+                <div class="controls">
                     <form:input type="text" class="form-control" id="mobile" placeholder="Mobil" path="person.mobile"/>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="control-label">Telefon</label>
-                <div class="col-sm-18">
+
+            <div class="control-group">
+                <label class="control-label" for="phone">Telefon</label>
+                <div class="controls">
                     <form:input type="text" class="form-control" id="phone" placeholder="Telefon" path="person.phone"/>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="control-label">Mail</label>
-                <div class="col-sm-18">
+
+            <div class="control-group">
+                <label class="control-label" for="mail">Mail</label>
+                <div class="controls">
                     <form:input type="text" class="form-control" id="mail" placeholder="Mail" path="person.email"/>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="control-label">Fødselsdag</label>
-                <div class="col-sm-18">
+
+            <div class="control-group">
+                <label class="control-label" for="facebookProfileId">Facebook Id</label>
+                <div class="controls">
+                    <form:input type="text" class="form-control" id="facebookProfileId" placeholder="Facebook Id" path="person.facebookProfileId"/>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="dayOfBirth">Fødselsdag</label>
+                <div class="controls">
                     <form:input type="text" class="form-control" id="dayOfBirth" placeholder="YYYY-MM-DD" path="person.dayOfBirth"/>
                 </div>
             </div>
+
+
+
+            <div class="control-group">
+                <label class="control-label" for="flatwaterLevel">EPP Niveau Tur</label>
+                <div class="controls">
+                    <form:input type="text" class="form-control" id="flatwaterLevel" placeholder="EPP2" path="person.flatwaterLevel"/>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="flatwaterLevel">EPP Niveau Hav</label>
+                <div class="controls">
+                    <form:input type="text" class="form-control" id="openwaterLevel" placeholder="EPP2" path="person.openwaterLevel"/>
+                </div>
+            </div>
+
+            <br>
+
+            <div class="control-group">
+                <div class="controls">
+                    <label for="male">Mand&nbsp&nbsp<label>
+                            <form:radiobutton path="person.female" id="male" value="false" cssClass="radio-inline"/>
+                        <label for="female">Kvinde&nbsp</label>
+                            <form:radiobutton path="person.female" id="female" value="true" cssClass="radio-inline"/>
+                </div>
+            </div>
+
+        </div>
+        <form:input type="hidden" path="person.id" />
+        <form:input type="hidden" path="person.created" />
+        <div class="modal-footer pull-center">
             <div class="btn-group pull-right">
                 <div class="">
                     <input type="submit" class="btn-fixed-width-sm btn btn-primary btn-group" role="button" value="Opdater"/>
@@ -169,11 +220,76 @@
                     <a href="delete_person.html?id=${person.id}" class="btn-fixed-width-sm btn btn-danger btn-group" role="button">Slet</a>
                 </div>
             </div>
-        </fieldset>
+        </div>
     </form:form>
 </div>
 
 
+
+
+<%--<h4 class="col-lg-12">Person Oplysninger</h4>--%>
+<%--<div class="modal fade" id="editPersonModal" aria-hidden="true">--%>
+    <%--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>--%>
+    <%--<form:form class="form-narrow form-horizontal" method="POST" action="/save_person.html" commandName="editPersonForm">--%>
+        <%--<fieldset class="">--%>
+            <%--<div class="form-group">--%>
+                <%--<label class="control-label">Navn</label>--%>
+                <%--<div class="col-sm-18">--%>
+                    <%--<form:input type="text" class="form-control" id="name" placeholder="Navn" path="person.name" />--%>
+                <%--</div>--%>
+            <%--</div>--%>
+            <%--<div class="form-group">--%>
+                <%--<label class="control-label">Addresse</label>--%>
+                <%--<div class="col-sm-18">--%>
+                    <%--<form:input type="text" class="form-control" id="address" placeholder="Vejnavn Husnummer, Postnummer By" path="person.address"/>--%>
+                <%--</div>--%>
+            <%--</div>--%>
+            <%--<div class="form-group">--%>
+                <%--<label class="control-label">Mobil</label>--%>
+                <%--<div class="col-sm-6">--%>
+                    <%--<form:input type="text" class="form-control" id="mobile" placeholder="Mobil" path="person.mobile"/>--%>
+                <%--</div>--%>
+                <%--<label class="control-label">Telefon</label>--%>
+                <%--<div class="col-sm-6">--%>
+                    <%--<form:input type="text" class="form-control" id="phone" placeholder="Telefon" path="person.phone"/>--%>
+                <%--</div>--%>
+            <%--</div>--%>
+            <%--&lt;%&ndash;<div class="form-group">&ndash;%&gt;--%>
+            <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
+            <%--<div class="form-group">--%>
+                <%--<label class="control-label">Mail</label>--%>
+                <%--<div class="col-sm-18">--%>
+                    <%--<form:input type="text" class="form-control" id="mail" placeholder="Mail" path="person.email"/>--%>
+                <%--</div>--%>
+            <%--</div>--%>
+            <%--<div class="form-group">--%>
+                <%--<label class="control-label">Fødselsdag</label>--%>
+                <%--<div class="col-sm-18">--%>
+                    <%--<form:input type="text" class="form-control" id="dayOfBirth" placeholder="YYYY-MM-DD" path="person.dayOfBirth"/>--%>
+                <%--</div>--%>
+            <%--</div>--%>
+                <%--<div class="">--%>
+<%--<div class="btn-group pull-right">--%>
+<%--<input type="submit" class="btn-fixed-width-sm btn btn-primary btn-group" role="button" value="Opdater"/>--%>
+
+                <%--</div>--%>
+            <%--</div>--%>
+            <%--<div class="btn-group pull-right">--%>
+                <%--<div class="">--%>
+                    <%--<a href="delete_person.html?id=${person.id}" class="btn-fixed-width-sm btn btn-danger btn-group" role="button">Slet</a>--%>
+                <%--</div>--%>
+            <%--</div>--%>
+        <%--</fieldset>--%>
+    <%--</form:form>--%>
+<%--</div>--%>
+
+<%--<script>--%>
+    <%--$(document).ready(function() {--%>
+        <%--$('#editPersonModal').on('show.bs.modal', function(event) {--%>
+            <%--$("#filter").val($(event.relatedTarget).data('filter-string'));--%>
+        <%--});--%>
+    <%--});--%>
+<%--</script>--%>
 
 
 
