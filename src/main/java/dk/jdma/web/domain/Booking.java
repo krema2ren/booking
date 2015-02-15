@@ -110,11 +110,22 @@ public class Booking implements Serializable {
 
     @Override
     public String toString() {
+        // TODO: move to booking.jsp page
         String s = "";
+        int idx = 0;
         for(Person p : persons) {
-            s = s + p.getName() + "<br/>";
+            s = s + "    <div class=\"media\" style=\"" + (idx == 0 ? "margin-left: -8px;" : "margin-top: -5px; margin-left: -8px;") + "\">\n" +
+                    "        <img class=\"media-object custom-media\" src=\"//graph.facebook.com/" + p.getFacebookProfileId() + "/picture\">\n" +
+                    "        <div class=\"media-body\">\n" +
+                    "            <b>" + p.getName() + " [ " + bookingDate.toString(DateTimeFormat.forPattern("dd/MM HH:mm")) + " - " + returnDate.toString(DateTimeFormat.forPattern("HH:mm")) + " ]</b> <br>\n" +
+                    "            <small>" + destination.getName() + "</small><br>\n" +
+                    "            <small>" + kayak.getTagName() + "</small>\n" +
+                    "        </div>\n" +
+                    "    </div>";
+            idx++;
         }
-        return   "<p align=\"left\"><u><b>" + bookingDate.toString(DateTimeFormat.forPattern("dd/MM HH:mm")) + " - " + returnDate.toString(DateTimeFormat.forPattern("HH:mm")) + " : " + destination.getName() + "</b></u><br/>" + s + "<sub>" + kayak.getTagName() + "<br/><br/><br/>Distance : " + (distance == null ? "-" : distance) + " km</sub></p>";
+
+        return s;
     }
 
     @Override

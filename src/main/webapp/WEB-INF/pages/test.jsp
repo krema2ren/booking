@@ -51,7 +51,6 @@
             <small>13-1 Tirana Tur B KKKK</small><br>
         </div>
     </div>
-
 </button>
 
 
