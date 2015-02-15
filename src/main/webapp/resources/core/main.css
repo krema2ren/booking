@@ -29,8 +29,9 @@ body {
     margin: 5px;
 }
 .btn-fixed-width-booking {
-    width: 300px;
+    width: 400px;
     margin: 5px;
+    text-align: left;
 }
 
 .autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto;  -webkit-border-radius: 5px;
@@ -62,6 +63,16 @@ body {
 input[readonly] {
     background-color: white !important;
     cursor: text !important;
+}
+
+.custom-media, .media-body{
+    margin: 3px;
+    float:left;
+    display:inline;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    vertical-align: text-top;
 }
 
 /*table {*/
