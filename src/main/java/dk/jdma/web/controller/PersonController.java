@@ -47,7 +47,7 @@ public class PersonController {
         if(filter != null && !filter.isEmpty()) {
             filterForm.setFilter(filter);
             for(Person person : persons) {
-                if(person.toString().contains(filter)) {
+                if(person.toString().toLowerCase().contains(filter.toLowerCase())) {
                     result.add(person);
                 }
             }
