@@ -41,6 +41,18 @@ public class Person implements Serializable {
     @Basic
     private String email;
 
+    @Basic
+    private String flatwaterLevel;
+
+    @Basic
+    private String openwaterLevel;
+
+    @Basic
+    private String facebookProfileId;
+
+    @Column(columnDefinition = "tinyint")
+    private boolean female;
+
     public Person() {
     }
 
@@ -106,6 +118,38 @@ public class Person implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getFlatwaterLevel() {
+        return flatwaterLevel;
+    }
+
+    public void setFlatwaterLevel(String flatwaterLevel) {
+        this.flatwaterLevel = flatwaterLevel;
+    }
+
+    public String getOpenwaterLevel() {
+        return openwaterLevel;
+    }
+
+    public void setOpenwaterLevel(String openwaterLevel) {
+        this.openwaterLevel = openwaterLevel;
+    }
+
+    public String getFacebookProfileId() {
+        return facebookProfileId;
+    }
+
+    public void setFacebookProfileId(String facebookProfileId) {
+        this.facebookProfileId = facebookProfileId;
+    }
+
+    public boolean isFemale() {
+        return female;
+    }
+
+    public void setFemale(boolean female) {
+        this.female = female;
     }
 
     @Override
