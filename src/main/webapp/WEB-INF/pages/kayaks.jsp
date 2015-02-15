@@ -42,11 +42,11 @@
 
             <ul class="nav navbar-nav navbar-collapse">
                 <div class="search">
-                    <form:form class="navbar-form navbar-left" method="POST" action="/filter_kayaks.html" commandName="filterKayaksForm">
+                    <form:form class="navbar-form navbar-left" method="POST" action="/filter_kayaks.html" commandName="filterForm">
                         <fieldset>
                             <div class="form-group">
                                 <div class="">
-                                    <form:input type="text" class="form-control" id="w-input-kayak" placeholder="Kajak eller plads" path="filter"/>
+                                    <form:input type="text" class="form-control" id="filter" placeholder="Kajak eller plads" path="filter"/>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -60,6 +60,7 @@
     </div>
 </nav>
 
+<div class="container-fluid col-lg-offset-1">${fn:length(kayaks)} kajakker fundet.</div>
 
 <!----------------------->
 <!-- Show all kayaks -->
@@ -115,16 +116,5 @@
 
 <%--</div>--%>
 
-<script>
-    //triggered when modal is about to be shown
-    $('#editKayakModal').on('show.bs.modal', function(e) {
-
-        //get data-id attribute of the clicked element
-        var bookId = $(e.relatedTarget).data('kayak-id');
-
-        //populate the textbox
-        $(e.currentTarget).find('input[name="kayakId"]').val(bookId);
-    });
-</script>
 </body>
 </html>
