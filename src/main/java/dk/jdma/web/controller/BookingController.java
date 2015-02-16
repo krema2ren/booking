@@ -1,7 +1,7 @@
 package dk.jdma.web.controller;
 
 import dk.jdma.web.domain.*;
-import dk.jdma.web.repository.BookingRepository;
+import dk.jdma.web.repository.TripRepository;
 import dk.jdma.web.repository.DestinationRepository;
 import dk.jdma.web.repository.KayakRepository;
 import dk.jdma.web.repository.PersonRepository;
@@ -34,7 +34,7 @@ public class BookingController {
     KayakRepository kayakRepository;
 
     @Autowired
-    BookingRepository bookingRepository;
+    TripRepository tripRepository;
 
     @Autowired
     DestinationRepository destinationRepository;
@@ -45,11 +45,11 @@ public class BookingController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView home() {
 		ModelAndView model = new ModelAndView("booking");
-        List<Trip> trips = bookingRepository.findActiveBookings(DateTime.now());
-        model.getModelMap().addAttribute("bookings", trips);
-        model.getModelMap().addAttribute("bookingForm", new BookingForm());
-        model.getModelMap().addAttribute("addPersonForm", new AddPersonForm());
-        model.getModelMap().addAttribute("finishForm", new FinishForm());
+        List<Trip> trips = tripRepository.findActiveBookings(DateTime.now());
+        model.addObject(trips);
+        model.addObject(new BookingForm());
+        model.addObject(new AddPersonForm());
+        model.addObject(new FinishForm());
 		return model;
 	}
 
@@ -73,18 +73,18 @@ public class BookingController {
 
     @RequestMapping(value = "/delete_booking.html", method = RequestMethod.GET)
     public ModelAndView deleteBooking(@RequestParam String id) {
-        bookingRepository.delete(Long.parseLong(id));
+        tripRepository.delete(Long.parseLong(id));
         return new ModelAndView(new RedirectView("/trip"));
     }
 
 
     @RequestMapping(value = "/add_person.html", method = RequestMethod.POST)
     public ModelAndView addPerson(@ModelAttribute AddPersonForm addPersonForm) {
-        Trip trip = bookingRepository.findOne(Long.parseLong(addPersonForm.getBookingId()));
+        Trip trip = tripRepository.findOne(Long.parseLong(addPersonForm.getBookingId()));
         Person person = personRepository.findByName(addPersonForm.getName());
         if(trip != null && person != null) {
             trip.getPersons().add(person);
-            bookingRepository.save(trip);
+            tripRepository.save(trip);
         }
         return new ModelAndView(new RedirectView("/trip"));
     }
@@ -125,18 +125,18 @@ public class BookingController {
         persons.add(person);
         trip.setPersons(persons);
         trip.setDestination(destination);
-        bookingRepository.save(trip);
+        tripRepository.save(trip);
         return new ModelAndView(new RedirectView("/trip"));
     }
 
     @RequestMapping(value = "/finish.html", method = RequestMethod.POST)
     public ModelAndView finish(@ModelAttribute FinishForm finishForm) {
-        Trip trip = bookingRepository.findOne(Long.parseLong(finishForm.getBookingId()));
+        Trip trip = tripRepository.findOne(Long.parseLong(finishForm.getBookingId()));
         if(trip != null) {
             trip.setDistance(Double.parseDouble(finishForm.getDistance()));
             trip.setReturnDate(DateTime.now());
             trip.setReturned(true);
-            bookingRepository.save(trip);
+            tripRepository.save(trip);
         }
         return new ModelAndView(new RedirectView("/trip"));
     }
@@ -174,7 +174,7 @@ public class BookingController {
 
     private List<Tag> findAllBookings() {
         List<Tag> result = new ArrayList<Tag>();
-        List<Trip> trips = (List<Trip>)bookingRepository.findAll();
+        List<Trip> trips = (List<Trip>) tripRepository.findAll();
         int idx=0;
         for (Trip trip : trips) {
             result.add(new Tag(idx++, trip.toString()));

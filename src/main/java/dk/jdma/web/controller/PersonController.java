@@ -2,7 +2,7 @@ package dk.jdma.web.controller;
 
 import dk.jdma.web.domain.Trip;
 import dk.jdma.web.domain.Person;
-import dk.jdma.web.repository.BookingRepository;
+import dk.jdma.web.repository.TripRepository;
 import dk.jdma.web.repository.KayakRepository;
 import dk.jdma.web.repository.PersonRepository;
 import dk.jdma.web.web.EditPersonForm;
@@ -35,7 +35,7 @@ public class PersonController {
     KayakRepository kayakRepository;
 
     @Autowired
-    BookingRepository bookingRepository;
+    TripRepository tripRepository;
 
     @RequestMapping(value = "/persons", method = RequestMethod.GET)
     public ModelAndView index(@RequestParam(value="filter",required = false, defaultValue = "") String filter) {
@@ -60,7 +60,7 @@ public class PersonController {
 
     @RequestMapping(value = "/filter_persons.html", method = RequestMethod.POST)
     public ModelAndView filterPersons(@ModelAttribute FilterForm filterForm) {
-        return new ModelAndView(new RedirectView("/booking/persons?filter=" + filterForm.getFilter()));
+        return new ModelAndView(new RedirectView("/trip/persons?filter=" + filterForm.getFilter()));
     }
 
     @RequestMapping(value = "/person_detail.html", method = RequestMethod.GET)
@@ -71,7 +71,7 @@ public class PersonController {
         mv.addObject(editPersonForm);
         List<Person> persons = new ArrayList<Person>();
         persons.add(person);
-        List<Trip> trips = bookingRepository.findByPersons(persons);
+        List<Trip> trips = tripRepository.findByPersons(persons);
         Collections.sort(trips, new Comparator<Trip>() {
             @Override
             public int compare(Trip b1, Trip b2) {
@@ -84,6 +84,7 @@ public class PersonController {
         FilterForm filterForm = new FilterForm();
         filterForm.setFilter(filter != null ? filter : "");
         mv.addObject(filterForm);
+        log.debug(mv.toString());
         return mv;
     }
 
@@ -95,8 +96,8 @@ public class PersonController {
         mv.getModelMap().addAttribute("editPersonForm", editPersonForm);
         List<Person> persons = new ArrayList<Person>();
         persons.add(person);
-        List<Trip> trips = bookingRepository.findByPersons(persons);
-        mv.getModelMap().addAttribute("bookings", trips);
+        List<Trip> trips = tripRepository.findByPersons(persons);
+        mv.addObject(trips);
         return mv;
     }
 
@@ -117,7 +118,7 @@ public class PersonController {
             person.setOpenwaterLevel(editPersonForm.getPerson().getOpenwaterLevel());
             personRepository.save(person);
         }
-        return new ModelAndView(new RedirectView("/booking/persons?filter=" + filter));
+        return new ModelAndView(new RedirectView("/trip/persons?filter=" + filter));
     }
 
 }

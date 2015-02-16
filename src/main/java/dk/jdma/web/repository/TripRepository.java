@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface BookingRepository extends CrudRepository<Trip, Long> {
+public interface TripRepository extends CrudRepository<Trip, Long> {
 
     @Query("select b from Trip b where b.bookingDate <= :time and b.returnDate >= :time")
     List<Trip> findActiveBookings(@Param("time") DateTime now);

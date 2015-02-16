@@ -115,6 +115,24 @@
     <%--</form>--%>
 
 
+
+    <form:form class="" method="POST" action="/create_data.html" commandName="testForm" acceptCharset="utf-8">
+        <fieldset>
+            <div class="form-group">
+                <div>
+                    <form:input type="text" class="form-control" id="" placeholder="Antal" path="noOfTrips"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" id="addPerson" role="button" value="Opret tilfældige ture"/>
+            </div>
+        </fieldset>
+    </form:form>
+
+
+
+
+
 </div>
 
 <script>

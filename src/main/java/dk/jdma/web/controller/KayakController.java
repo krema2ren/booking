@@ -52,7 +52,7 @@ public class KayakController {
 
     @RequestMapping(value = "/filter_kayaks.html", method = RequestMethod.POST)
     public ModelAndView filterKayaks(@ModelAttribute FilterForm filterForm) {
-        return new ModelAndView(new RedirectView("/booking/kayaks?filter=" + filterForm.getFilter()));
+        return new ModelAndView(new RedirectView("/trip/kayaks?filter=" + filterForm.getFilter()));
     }
 
 }

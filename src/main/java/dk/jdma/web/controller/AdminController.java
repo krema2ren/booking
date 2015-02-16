@@ -5,6 +5,7 @@ import dk.jdma.web.domain.Person;
 import dk.jdma.web.repository.KayakRepository;
 import dk.jdma.web.repository.PersonRepository;
 import dk.jdma.web.web.FilterForm;
+import dk.jdma.web.web.TestForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,7 @@ public class AdminController {
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public ModelAndView index() {
         ModelAndView mv = new ModelAndView("admin");
+        mv.addObject(new TestForm());
         return mv;
     }
 

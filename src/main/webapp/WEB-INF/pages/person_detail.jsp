@@ -67,28 +67,30 @@
 <div class="col-md-12">
     <div class="row">
         <div class="col-sm-2">
-            <div class="btn-group">
-                <c:choose>
-                    <c:when test="${birthYear > 1997}">
-                        <a role="button" data-toggle="modal" data-target="#editPersonModal" class="btn-fixed-width-trip btn btn-success">${person}</a>
-                    </c:when>
-                    <c:when test="${birthYear < 1954}">
-                        <a role="button" data-toggle="modal" data-target="#editPersonModal" class="btn-fixed-width-trip btn btn-warning">${person}</a>
-                    </c:when>
-                    <c:otherwise>
-                        <a role="button" data-toggle="modal" data-target="#editPersonModal" class="btn-fixed-width-trip btn btn-primary">${person}</a>
-                    </c:otherwise>
-                </c:choose>
+            <!----------------------->
+            <!-- Show person info  -->
+            <!----------------------->
+            <div class="container-fluid col-lg-offset-1">
+                <div class="btn-group">
+                    <c:choose>
+                        <c:when test="${birthYear > 1997}">
+                            <a role="button" data-toggle="modal" data-target="#editPersonModal" class="btn-fixed-width-trip btn btn-success">${person}</a>
+                        </c:when>
+                        <c:when test="${birthYear < 1954}">
+                            <a role="button" data-toggle="modal" data-target="#editPersonModal" class="btn-fixed-width-trip btn btn-warning">${person}</a>
+                        </c:when>
+                        <c:otherwise>
+                            <a role="button" data-toggle="modal" data-target="#editPersonModal" class="btn-fixed-width-trip btn btn-primary">${person}</a>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
             </div>
-        </div>
-        <div class="col-sm-2">
-        </div>
-        <div class="col-sm-2">
+
             <!----------------------->
             <!-- Show all trips -->
             <!----------------------->
             <div class="container-fluid col-lg-offset-1">
-                <c:forEach items="${trips}" var="trip">
+                <c:forEach items="${tripList}" var="trip">
                     <div class="btn-group">
                         <c:choose>
                             <c:when test="${fn:containsIgnoreCase(trip.kayak.type, 'kap')}">
@@ -102,17 +104,26 @@
                             </c:otherwise>
                         </c:choose>
                         <ul class="dropdown-menu" role="menu">
-                            <%--<li><a data-toggle="modal" data-target="#finishModal" data-trip-id="${trip.id}">Afslut</a></li>--%>
-                            <%--<c:if test="${trip.kayak.seats > fn:length(trip.persons)}">--%>
+                                <%--<li><a data-toggle="modal" data-target="#finishModal" data-trip-id="${trip.id}">Afslut</a></li>--%>
+                                <%--<c:if test="${trip.kayak.seats > fn:length(trip.persons)}">--%>
                                 <%--<li><a data-toggle="modal" data-target="#addPersonModal" data-trip-id="${trip.id}">Tilføj Person</a></li>--%>
-                            <%--</c:if>--%>
-                            <li><a href="edit_booking.html?id=${trip.id}">>Redigér</a></li>
+                                <%--</c:if>--%>
+                            <li><a href="edit_booking.html?id=${trip.id}">Redigér</a></li>
                             <li class="divider"></li>
                             <li><a href="delete_booking.html?id=${trip.id}">Slet</a></li>
                         </ul>
                     </div>
                 </c:forEach>
             </div>
+
+
+        </div>
+        <div class="col-sm-2">
+        </div>
+        <div class="col-sm-2">
+
+
+
 
         </div>
     </div>

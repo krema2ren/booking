@@ -101,7 +101,7 @@
 <!-- Show all trips -->
 <!----------------------->
 <div class="container-fluid col-lg-offset-1">
-    <c:forEach items="${trips}" var="trip">
+    <c:forEach items="${tripList}" var="trip">
         <div class="btn-group">
             <c:choose>
                 <c:when test="${fn:containsIgnoreCase(trip.kayak.type, 'kap')}">
