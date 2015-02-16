@@ -20,7 +20,7 @@
                 <h1>Uuups, der er sket en fejl...</h1>
                 <br />
                 <p>...undskyld, men prøv igen og må gode tanker og karma hjælpe dig!</p>
-                <a href="/booking" class="btn btn-large btn-primary">Tilbage</a>
+                <a href="/trip" class="btn btn-large btn-primary">Tilbage</a>
                 <a data-toggle="modal" data-target="#showExceptionModal" class="btn btn-large btn-danger">Vis Fejl</a>
             </div>
             <br />

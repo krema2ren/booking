@@ -18,7 +18,7 @@
 
 <h1>TEST</h1>
 
-<button type="button"  class="btn btn-fixed-width-booking btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+<button type="button"  class="btn btn-fixed-width-trip btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
     <div class="media">
         <a class="" href="#">
             <img class="media-object custom-media" src="//graph.facebook.com/krema2ren/picture">
@@ -34,7 +34,7 @@
 
 <br>
 
-<button type="button"  class="btn btn-fixed-width-booking btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+<button type="button"  class="btn btn-fixed-width-trip btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
     <div class="media" style="margin-left: -8px;">
         <img class="media-object custom-media" src="//graph.facebook.com/krema2ren/picture">
         <div class="media-body">
@@ -57,7 +57,7 @@
 
 
 
-<button type="button"  class="btn btn-fixed-width-booking btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+<button type="button"  class="btn btn-fixed-width-trip btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 <div class="col-xs-12 col-md-6">
     <div class="col-md-1">
         <img class="image" src="//graph.facebook.com/krema2ren/picture">
@@ -108,7 +108,7 @@
 </div>
 
 
-<%--<button type="button"  class="btn-fixed-width-booking btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">--%>
+<%--<button type="button"  class="btn-fixed-width-trip btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">--%>
 <%--<div class="paragraphs">--%>
     <%--<div class="row">--%>
         <%--<div class="span4">--%>

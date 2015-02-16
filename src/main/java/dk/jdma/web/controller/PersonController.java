@@ -1,11 +1,10 @@
 package dk.jdma.web.controller;
 
-import dk.jdma.web.domain.Booking;
+import dk.jdma.web.domain.Trip;
 import dk.jdma.web.domain.Person;
 import dk.jdma.web.repository.BookingRepository;
 import dk.jdma.web.repository.KayakRepository;
 import dk.jdma.web.repository.PersonRepository;
-import dk.jdma.web.web.AddPersonForm;
 import dk.jdma.web.web.EditPersonForm;
 import dk.jdma.web.web.FilterForm;
 import org.slf4j.Logger;
@@ -72,15 +71,15 @@ public class PersonController {
         mv.addObject(editPersonForm);
         List<Person> persons = new ArrayList<Person>();
         persons.add(person);
-        List<Booking> bookings = bookingRepository.findByPersons(persons);
-        Collections.sort(bookings, new Comparator<Booking>() {
+        List<Trip> trips = bookingRepository.findByPersons(persons);
+        Collections.sort(trips, new Comparator<Trip>() {
             @Override
-            public int compare(Booking b1, Booking b2) {
+            public int compare(Trip b1, Trip b2) {
                 return b1.getBookingDate().compareTo(b2.getBookingDate());
             }
         });
-        Collections.reverse(bookings);
-        mv.addObject(bookings);
+        Collections.reverse(trips);
+        mv.addObject(trips);
         mv.addObject(person);
         FilterForm filterForm = new FilterForm();
         filterForm.setFilter(filter != null ? filter : "");
@@ -96,8 +95,8 @@ public class PersonController {
         mv.getModelMap().addAttribute("editPersonForm", editPersonForm);
         List<Person> persons = new ArrayList<Person>();
         persons.add(person);
-        List<Booking> bookings = bookingRepository.findByPersons(persons);
-        mv.getModelMap().addAttribute("bookings", bookings);
+        List<Trip> trips = bookingRepository.findByPersons(persons);
+        mv.getModelMap().addAttribute("bookings", trips);
         return mv;
     }
 

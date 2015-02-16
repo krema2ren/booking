@@ -45,8 +45,8 @@ public class BookingController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView home() {
 		ModelAndView model = new ModelAndView("booking");
-        List<Booking> bookings = bookingRepository.findActiveBookings(DateTime.now());
-        model.getModelMap().addAttribute("bookings", bookings);
+        List<Trip> trips = bookingRepository.findActiveBookings(DateTime.now());
+        model.getModelMap().addAttribute("bookings", trips);
         model.getModelMap().addAttribute("bookingForm", new BookingForm());
         model.getModelMap().addAttribute("addPersonForm", new AddPersonForm());
         model.getModelMap().addAttribute("finishForm", new FinishForm());
@@ -74,19 +74,19 @@ public class BookingController {
     @RequestMapping(value = "/delete_booking.html", method = RequestMethod.GET)
     public ModelAndView deleteBooking(@RequestParam String id) {
         bookingRepository.delete(Long.parseLong(id));
-        return new ModelAndView(new RedirectView("/booking"));
+        return new ModelAndView(new RedirectView("/trip"));
     }
 
 
     @RequestMapping(value = "/add_person.html", method = RequestMethod.POST)
     public ModelAndView addPerson(@ModelAttribute AddPersonForm addPersonForm) {
-        Booking booking = bookingRepository.findOne(Long.parseLong(addPersonForm.getBookingId()));
+        Trip trip = bookingRepository.findOne(Long.parseLong(addPersonForm.getBookingId()));
         Person person = personRepository.findByName(addPersonForm.getName());
-        if(booking != null && person != null) {
-            booking.getPersons().add(person);
-            bookingRepository.save(booking);
+        if(trip != null && person != null) {
+            trip.getPersons().add(person);
+            bookingRepository.save(trip);
         }
-        return new ModelAndView(new RedirectView("/booking"));
+        return new ModelAndView(new RedirectView("/trip"));
     }
 
     @RequestMapping(value = "/book.html", method = RequestMethod.POST)
@@ -117,28 +117,28 @@ public class BookingController {
             }
 
         }
-        Booking booking = new Booking();
-        booking.setBookingDate(DateTime.now());
-        booking.setReturnDate(new DateTime(booking.getBookingDate()).plusHours(destination.getDistance().intValue()/3));
-        booking.setKayak(kayak);
+        Trip trip = new Trip();
+        trip.setBookingDate(DateTime.now());
+        trip.setReturnDate(new DateTime(trip.getBookingDate()).plusHours(destination.getDistance().intValue()/3));
+        trip.setKayak(kayak);
         List<Person> persons = new ArrayList<Person>();
         persons.add(person);
-        booking.setPersons(persons);
-        booking.setDestination(destination);
-        bookingRepository.save(booking);
-        return new ModelAndView(new RedirectView("/booking"));
+        trip.setPersons(persons);
+        trip.setDestination(destination);
+        bookingRepository.save(trip);
+        return new ModelAndView(new RedirectView("/trip"));
     }
 
     @RequestMapping(value = "/finish.html", method = RequestMethod.POST)
     public ModelAndView finish(@ModelAttribute FinishForm finishForm) {
-        Booking booking = bookingRepository.findOne(Long.parseLong(finishForm.getBookingId()));
-        if(booking != null) {
-            booking.setDistance(Double.parseDouble(finishForm.getDistance()));
-            booking.setReturnDate(DateTime.now());
-            booking.setReturned(true);
-            bookingRepository.save(booking);
+        Trip trip = bookingRepository.findOne(Long.parseLong(finishForm.getBookingId()));
+        if(trip != null) {
+            trip.setDistance(Double.parseDouble(finishForm.getDistance()));
+            trip.setReturnDate(DateTime.now());
+            trip.setReturned(true);
+            bookingRepository.save(trip);
         }
-        return new ModelAndView(new RedirectView("/booking"));
+        return new ModelAndView(new RedirectView("/trip"));
     }
 
 
@@ -174,10 +174,10 @@ public class BookingController {
 
     private List<Tag> findAllBookings() {
         List<Tag> result = new ArrayList<Tag>();
-        List<Booking> bookings = (List<Booking>)bookingRepository.findAll();
+        List<Trip> trips = (List<Trip>)bookingRepository.findAll();
         int idx=0;
-        for (Booking booking : bookings) {
-            result.add(new Tag(idx++, booking.toString()));
+        for (Trip trip : trips) {
+            result.add(new Tag(idx++, trip.toString()));
         }
         return result;
     }

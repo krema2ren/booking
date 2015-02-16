@@ -37,10 +37,10 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class=""><a href="/booking">Reservationer<span class="sr-only">(current)</span></a></li>
-                <li><a href="/booking/kayaks">Kajakker</a></li>
-                <li><a href="/booking/persons">Medlemmer</a></li>
-                <li><a href="/booking/admin">Admin</a></li>
+                <li class=""><a href="/trip">Reservationer<span class="sr-only">(current)</span></a></li>
+                <li><a href="/trip/kayaks">Kajakker</a></li>
+                <li><a href="/trip/persons">Medlemmer</a></li>
+                <li><a href="/trip/admin">Admin</a></li>
             </ul>
 
             <%--<ul class="nav navbar-nav navbar-collapse">--%>
@@ -70,13 +70,13 @@
             <div class="btn-group">
                 <c:choose>
                     <c:when test="${birthYear > 1997}">
-                        <a role="button" data-toggle="modal" data-target="#editPersonModal" class="btn-fixed-width-booking btn btn-success">${person}</a>
+                        <a role="button" data-toggle="modal" data-target="#editPersonModal" class="btn-fixed-width-trip btn btn-success">${person}</a>
                     </c:when>
                     <c:when test="${birthYear < 1954}">
-                        <a role="button" data-toggle="modal" data-target="#editPersonModal" class="btn-fixed-width-booking btn btn-warning">${person}</a>
+                        <a role="button" data-toggle="modal" data-target="#editPersonModal" class="btn-fixed-width-trip btn btn-warning">${person}</a>
                     </c:when>
                     <c:otherwise>
-                        <a role="button" data-toggle="modal" data-target="#editPersonModal" class="btn-fixed-width-booking btn btn-primary">${person}</a>
+                        <a role="button" data-toggle="modal" data-target="#editPersonModal" class="btn-fixed-width-trip btn btn-primary">${person}</a>
                     </c:otherwise>
                 </c:choose>
             </div>
@@ -85,30 +85,30 @@
         </div>
         <div class="col-sm-2">
             <!----------------------->
-            <!-- Show all bookings -->
+            <!-- Show all trips -->
             <!----------------------->
             <div class="container-fluid col-lg-offset-1">
-                <c:forEach items="${bookings}" var="booking">
+                <c:forEach items="${trips}" var="trip">
                     <div class="btn-group">
                         <c:choose>
-                            <c:when test="${fn:containsIgnoreCase(booking.kayak.type, 'kap')}">
-                                <button type="button"  class="btn-fixed-width-booking btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">${booking}</button>
+                            <c:when test="${fn:containsIgnoreCase(trip.kayak.type, 'kap')}">
+                                <button type="button"  class="btn-fixed-width-trip btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">${trip}</button>
                             </c:when>
-                            <c:when test="${fn:containsIgnoreCase(booking.kayak.type, 'hav')}">
-                                <button type="button"  class="btn-fixed-width-booking btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">${booking}</button>
+                            <c:when test="${fn:containsIgnoreCase(trip.kayak.type, 'hav')}">
+                                <button type="button"  class="btn-fixed-width-trip btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">${trip}</button>
                             </c:when>
                             <c:otherwise>
-                                <button type="button"  class="btn-fixed-width-booking btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">${booking}</button>
+                                <button type="button"  class="btn-fixed-width-trip btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">${trip}</button>
                             </c:otherwise>
                         </c:choose>
                         <ul class="dropdown-menu" role="menu">
-                            <%--<li><a data-toggle="modal" data-target="#finishModal" data-booking-id="${booking.id}">Afslut</a></li>--%>
-                            <%--<c:if test="${booking.kayak.seats > fn:length(booking.persons)}">--%>
-                                <%--<li><a data-toggle="modal" data-target="#addPersonModal" data-booking-id="${booking.id}">Tilføj Person</a></li>--%>
+                            <%--<li><a data-toggle="modal" data-target="#finishModal" data-trip-id="${trip.id}">Afslut</a></li>--%>
+                            <%--<c:if test="${trip.kayak.seats > fn:length(trip.persons)}">--%>
+                                <%--<li><a data-toggle="modal" data-target="#addPersonModal" data-trip-id="${trip.id}">Tilføj Person</a></li>--%>
                             <%--</c:if>--%>
-                            <li><a href="edit_booking.html?id=${booking.id}">>Redigér</a></li>
+                            <li><a href="edit_booking.html?id=${trip.id}">>Redigér</a></li>
                             <li class="divider"></li>
-                            <li><a href="delete_booking.html?id=${booking.id}">Slet</a></li>
+                            <li><a href="delete_booking.html?id=${trip.id}">Slet</a></li>
                         </ul>
                     </div>
                 </c:forEach>

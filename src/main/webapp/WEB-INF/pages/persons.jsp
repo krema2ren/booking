@@ -37,10 +37,10 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class=""><a href="/booking">Reservationer<span class="sr-only">(current)</span></a></li>
-                <li><a href="/booking/kayaks">Kajakker</a></li>
-                <li><a href="/booking/persons">Medlemmer</a></li>
-                <li><a href="/booking/admin">Admin</a></li>
+                <li class=""><a href="/trip">Reservationer<span class="sr-only">(current)</span></a></li>
+                <li><a href="/trip/kayaks">Kajakker</a></li>
+                <li><a href="/trip/persons">Medlemmer</a></li>
+                <li><a href="/trip/admin">Admin</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-collapse">
@@ -75,13 +75,13 @@
         <div class="btn-group">
             <c:choose>
                 <c:when test="${birthYear > 1997}">
-                    <a role="button" href="person_detail.html?id=${person.id}&filter=${filterForm.filter}" class="btn-fixed-width-booking btn btn-success">${person}</a>
+                    <a role="button" href="person_detail.html?id=${person.id}&filter=${filterForm.filter}" class="btn-fixed-width-trip btn btn-success">${person}</a>
                 </c:when>
                 <c:when test="${birthYear < 1954}">
-                    <a role="button" href="person_detail.html?id=${person.id}&filter=${filterForm.filter}" class="btn-fixed-width-booking btn btn-warning">${person}</a>
+                    <a role="button" href="person_detail.html?id=${person.id}&filter=${filterForm.filter}" class="btn-fixed-width-trip btn btn-warning">${person}</a>
                 </c:when>
                 <c:otherwise>
-                    <a role="button" href="person_detail.html?id=${person.id}&filter=${filterForm.filter}" class="btn-fixed-width-booking btn btn-primary">${person}</a>
+                    <a role="button" href="person_detail.html?id=${person.id}&filter=${filterForm.filter}" class="btn-fixed-width-trip btn btn-primary">${person}</a>
                 </c:otherwise>
             </c:choose>
         </div>

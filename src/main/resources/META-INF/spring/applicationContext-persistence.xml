@@ -20,7 +20,7 @@
                     http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
 
 
-    <context:property-placeholder location="classpath:META-INF/properties/booking.properties"/>
+    <context:property-placeholder location="classpath:META-INF/properties/trip.properties"/>
 
     <!-- Single Connection Datasource -->
 <!--
@@ -55,7 +55,7 @@
 
     <bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource" />
-        <property name="persistenceUnitName" value="jpa.booking"/>
+        <property name="persistenceUnitName" value="jpa.trip"/>
 
         <!--
                 <property name="persistenceUnitName" value="PaddleCup-Persistence-Unit"/>

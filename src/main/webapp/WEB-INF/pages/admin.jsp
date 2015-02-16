@@ -34,10 +34,10 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class=""><a href="/booking">Reservationer<span class="sr-only">(current)</span></a></li>
-                <li><a href="/booking/kayaks">Kajakker</a></li>
-                <li><a href="/booking/persons">Medlemmer</a></li>
-                <li><a href="/booking/admin">Admin</a></li>
+                <li class=""><a href="/trip">Reservationer<span class="sr-only">(current)</span></a></li>
+                <li><a href="/trip/kayaks">Kajakker</a></li>
+                <li><a href="/trip/persons">Medlemmer</a></li>
+                <li><a href="/trip/admin">Admin</a></li>
             </ul>
 
             <%--<ul class="nav navbar-nav navbar-collapse">--%>

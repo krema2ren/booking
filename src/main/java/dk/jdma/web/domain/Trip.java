@@ -1,17 +1,15 @@
 package dk.jdma.web.domain;
 
 import org.hibernate.annotations.Type;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class Booking implements Serializable {
+public class Trip implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -41,7 +39,7 @@ public class Booking implements Serializable {
     @Column(columnDefinition = "tinyint")
     private boolean returned;
 
-    public Booking() {
+    public Trip() {
     }
 
     public Long getId() {
@@ -131,17 +129,17 @@ public class Booking implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Booking)) return false;
+        if (!(o instanceof Trip)) return false;
 
-        Booking booking = (Booking) o;
+        Trip trip = (Trip) o;
 
-        if (bookingDate != null ? !bookingDate.equals(booking.bookingDate) : booking.bookingDate != null) return false;
-        if (destination != null ? !destination.equals(booking.destination) : booking.destination != null) return false;
-        if (distance != null ? !distance.equals(booking.distance) : booking.distance != null) return false;
-        if (id != null ? !id.equals(booking.id) : booking.id != null) return false;
-        if (kayak != null ? !kayak.equals(booking.kayak) : booking.kayak != null) return false;
-        if (persons != null ? !persons.equals(booking.persons) : booking.persons != null) return false;
-        if (returnDate != null ? !returnDate.equals(booking.returnDate) : booking.returnDate != null) return false;
+        if (bookingDate != null ? !bookingDate.equals(trip.bookingDate) : trip.bookingDate != null) return false;
+        if (destination != null ? !destination.equals(trip.destination) : trip.destination != null) return false;
+        if (distance != null ? !distance.equals(trip.distance) : trip.distance != null) return false;
+        if (id != null ? !id.equals(trip.id) : trip.id != null) return false;
+        if (kayak != null ? !kayak.equals(trip.kayak) : trip.kayak != null) return false;
+        if (persons != null ? !persons.equals(trip.persons) : trip.persons != null) return false;
+        if (returnDate != null ? !returnDate.equals(trip.returnDate) : trip.returnDate != null) return false;
 
         return true;
     }
