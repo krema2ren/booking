@@ -28,6 +28,7 @@
         <setting name="provider-name" value="" />
         <datasource-mapping>
           <factory-entry name="jpa.booking" value="dataSource" />
+          <factory-entry name="jpa.trip" value="dataSource" />
         </datasource-mapping>
         <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/main/resources/META-INF/persistence.xml" />
       </configuration>

@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface TripRepository extends CrudRepository<Trip, Long> {
 
-    @Query("select b from Trip b where b.bookingDate <= :time and b.returnDate >= :time")
+    @Query("select t from Trip t where t.bookingDate <= :time and t.returnDate >= :time")
     List<Trip> findActiveBookings(@Param("time") DateTime now);
 
     List<Trip> findByPersons(List<Person> persons);

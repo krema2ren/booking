@@ -9,6 +9,7 @@
     <script src="<c:url value="/resources/core/jquery.1.10.2.min.js" />"></script>
     <script src="<c:url value="/resources/core/jquery.autocomplete.min.js" />"></script>
     <script src="<c:url value="/resources/core/bootstrap.min.js" />"></script>
+    <script src="<c:url value="/resources/core/chart.min.js" />"></script>
 
     <link href="<c:url value="/resources/core/bootstrap.min.css" />" rel="stylesheet"/>
     <link href="<c:url value="/resources/core/main.css" />" rel="stylesheet"/>
@@ -118,13 +119,10 @@
 
 
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-1">
         </div>
-        <div class="col-sm-2">
-
-
-
-
+        <div class="col-sm-8">
+            <canvas id="myChart"></canvas>
         </div>
     </div>
 </div>
@@ -236,73 +234,72 @@
 </div>
 
 
+<script type="text/javascript">
 
 
-<%--<h4 class="col-lg-12">Person Oplysninger</h4>--%>
-<%--<div class="modal fade" id="editPersonModal" aria-hidden="true">--%>
-    <%--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>--%>
-    <%--<form:form class="form-narrow form-horizontal" method="POST" action="/save_person.html" commandName="editPersonForm">--%>
-        <%--<fieldset class="">--%>
-            <%--<div class="form-group">--%>
-                <%--<label class="control-label">Navn</label>--%>
-                <%--<div class="col-sm-18">--%>
-                    <%--<form:input type="text" class="form-control" id="name" placeholder="Navn" path="person.name" />--%>
-                <%--</div>--%>
-            <%--</div>--%>
-            <%--<div class="form-group">--%>
-                <%--<label class="control-label">Addresse</label>--%>
-                <%--<div class="col-sm-18">--%>
-                    <%--<form:input type="text" class="form-control" id="address" placeholder="Vejnavn Husnummer, Postnummer By" path="person.address"/>--%>
-                <%--</div>--%>
-            <%--</div>--%>
-            <%--<div class="form-group">--%>
-                <%--<label class="control-label">Mobil</label>--%>
-                <%--<div class="col-sm-6">--%>
-                    <%--<form:input type="text" class="form-control" id="mobile" placeholder="Mobil" path="person.mobile"/>--%>
-                <%--</div>--%>
-                <%--<label class="control-label">Telefon</label>--%>
-                <%--<div class="col-sm-6">--%>
-                    <%--<form:input type="text" class="form-control" id="phone" placeholder="Telefon" path="person.phone"/>--%>
-                <%--</div>--%>
-            <%--</div>--%>
-            <%--&lt;%&ndash;<div class="form-group">&ndash;%&gt;--%>
-            <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-            <%--<div class="form-group">--%>
-                <%--<label class="control-label">Mail</label>--%>
-                <%--<div class="col-sm-18">--%>
-                    <%--<form:input type="text" class="form-control" id="mail" placeholder="Mail" path="person.email"/>--%>
-                <%--</div>--%>
-            <%--</div>--%>
-            <%--<div class="form-group">--%>
-                <%--<label class="control-label">Fødselsdag</label>--%>
-                <%--<div class="col-sm-18">--%>
-                    <%--<form:input type="text" class="form-control" id="dayOfBirth" placeholder="YYYY-MM-DD" path="person.dayOfBirth"/>--%>
-                <%--</div>--%>
-            <%--</div>--%>
-                <%--<div class="">--%>
-<%--<div class="btn-group pull-right">--%>
-<%--<input type="submit" class="btn-fixed-width-sm btn btn-primary btn-group" role="button" value="Opdater"/>--%>
+    window.onload = function () {
 
-                <%--</div>--%>
-            <%--</div>--%>
-            <%--<div class="btn-group pull-right">--%>
-                <%--<div class="">--%>
-                    <%--<a href="delete_person.html?id=${person.id}" class="btn-fixed-width-sm btn btn-danger btn-group" role="button">Slet</a>--%>
-                <%--</div>--%>
-            <%--</div>--%>
-        <%--</fieldset>--%>
-    <%--</form:form>--%>
-<%--</div>--%>
+        var canvas = document.getElementById("myChart");
+        canvas.height = 400;
+        canvas.width = 800;
+        canvas.offsetLeft = 20;
+        var ctx = canvas.getContext("2d");
 
-<%--<script>--%>
-    <%--$(document).ready(function() {--%>
-        <%--$('#editPersonModal').on('show.bs.modal', function(event) {--%>
-            <%--$("#filter").val($(event.relatedTarget).data('filter-string'));--%>
-        <%--});--%>
-    <%--});--%>
-<%--</script>--%>
+        var data = {
+            labels: ["Januar", "Februar", "Marts", "April", "Maj", "Juni", "Juli", "August", "September", "Oktober", "November", "December"],
+            datasets: [
+                {
+                    label: "Total",
+                    fillColor: "rgba(145,145,145,0.5)",
+                    strokeColor: "rgba(145,145,145,0.8)",
+                    highlightFill: "rgba(145,145,145,0.75)",
+                    highlightStroke: "rgba(145,145,145,1)",
+                    data: ${sum}
+                },
+                {
+                    label: "Hav",
+                    fillColor: "rgba(94,183,96,0.5)",
+                    strokeColor: "rgba(94,183,96,0.8)",
+                    highlightFill: "rgba(94,183,96,0.75)",
+                    highlightStroke: "rgba(94,183,96,1)",
+                    data: ${ocean}
+                },
+                {
+                    label: "Tur",
+                    fillColor: "rgba(70,140,200,0.5)",
+                    strokeColor: "rgba(70,140,200,0.8)",
+                    highlightFill: "rgba(70,140,200,0.75)",
+                    highlightStroke: "rgba(70,140,200,1)",
+                    data: ${tour}
+                },
+                {
+                    label: "Kap",
+                    fillColor: "rgba(238,172,87,0.5)",
+                    strokeColor: "rgba(238,172,87,0.8)",
+                    highlightFill: "rgba(238,172,87,0.75)",
+                    highlightStroke: "rgba(238,172,87,1)",
+                    data: ${sprint}
+                }
+            ]
+        };
 
+        var myBarChart = new Chart(ctx).Bar(data, {
+            scaleBeginAtZero : true,
+            scaleShowGridLines : true,
+            scaleGridLineColor : "rgba(0,0,0,.05)",
+            scaleGridLineWidth : 1,
+            scaleShowHorizontalLines: true,
+            scaleShowVerticalLines: true,
+            barShowStroke : true,
+            barStrokeWidth : 2,
+            barValueSpacing : 5,
+            barDatasetSpacing : 1
 
+        });
+
+    }
+
+</script>
 
 </body>
 </html>

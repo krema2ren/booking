@@ -7,6 +7,7 @@ import dk.jdma.web.repository.KayakRepository;
 import dk.jdma.web.repository.PersonRepository;
 import dk.jdma.web.web.EditPersonForm;
 import dk.jdma.web.web.FilterForm;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,6 +85,10 @@ public class PersonController {
         FilterForm filterForm = new FilterForm();
         filterForm.setFilter(filter != null ? filter : "");
         mv.addObject(filterForm);
+        mv.addObject("sprint", generateDistanceDataSet(trips, "kap"));
+        mv.addObject("tour", generateDistanceDataSet(trips, "tur"));
+        mv.addObject("ocean", generateDistanceDataSet(trips, "hav"));
+        mv.addObject("sum", generateDistanceDataSet(trips, ""));
         log.debug(mv.toString());
         return mv;
     }
@@ -120,5 +125,115 @@ public class PersonController {
         }
         return new ModelAndView(new RedirectView("/trip/persons?filter=" + filter));
     }
+
+    private List<DateTime> getIntervals() {
+        DateTime year = new DateTime().dayOfYear().withMinimumValue().withTimeAtStartOfDay();
+
+        List<DateTime> intervals = new ArrayList<DateTime>();
+        for(int month=0; month<12; month++) {
+            DateTime lastDayOfMonth = year.plusMonths(month).dayOfMonth().withMaximumValue().secondOfDay().withMaximumValue();
+            intervals.add(lastDayOfMonth);
+        }
+        return intervals;
+    }
+
+
+    private String generateDistanceDataSet(List<Trip> trips, String type) {
+        DateTime year = new DateTime().dayOfYear().withMinimumValue().withTimeAtStartOfDay();
+        List<DateTime> intervals = getIntervals();
+        Double data[] = { 0d, 0d, 0d, 0d, 0d, 0d, 0d, 0d, 0d, 0d, 0d, 0d };
+        for(Trip trip : trips) {
+            if((trip.getBookingDate().isAfter(year) && type.equalsIgnoreCase(trip.getKayak().getType())) || (trip.getBookingDate().isAfter(year) && type.isEmpty())) {
+                if(trip.getBookingDate().isAfter(year) && trip.getBookingDate().isBefore(intervals.get(0))) {
+                    data[0] = data[0] + (trip.getDistance() == null ? 0d : trip.getDistance());
+                } else if(trip.getBookingDate().isAfter(intervals.get(0)) && trip.getBookingDate().isBefore(intervals.get(1))) {
+                    data[1] = data[1] + (trip.getDistance() == null ? 0d : trip.getDistance());
+                } else if(trip.getBookingDate().isAfter(intervals.get(1)) && trip.getBookingDate().isBefore(intervals.get(2))) {
+                    data[2] = data[2] + (trip.getDistance() == null ? 0d : trip.getDistance());
+                } else if(trip.getBookingDate().isAfter(intervals.get(2)) && trip.getBookingDate().isBefore(intervals.get(3))) {
+                    data[3] = data[3] + (trip.getDistance() == null ? 0d : trip.getDistance());
+                } else if(trip.getBookingDate().isAfter(intervals.get(3)) && trip.getBookingDate().isBefore(intervals.get(4))) {
+                    data[4] = data[4] + (trip.getDistance() == null ? 0d : trip.getDistance());
+                } else if(trip.getBookingDate().isAfter(intervals.get(4)) && trip.getBookingDate().isBefore(intervals.get(5))) {
+                    data[5] = data[5] + (trip.getDistance() == null ? 0d : trip.getDistance());
+                } else if(trip.getBookingDate().isAfter(intervals.get(5)) && trip.getBookingDate().isBefore(intervals.get(6))) {
+                    data[6] = data[6] + (trip.getDistance() == null ? 0d : trip.getDistance());
+                } else if(trip.getBookingDate().isAfter(intervals.get(6)) && trip.getBookingDate().isBefore(intervals.get(7))) {
+                    data[7] = data[7] + (trip.getDistance() == null ? 0d : trip.getDistance());
+                } else if(trip.getBookingDate().isAfter(intervals.get(7)) && trip.getBookingDate().isBefore(intervals.get(8))) {
+                    data[8] = data[8] + (trip.getDistance() == null ? 0d : trip.getDistance());
+                } else if(trip.getBookingDate().isAfter(intervals.get(8)) && trip.getBookingDate().isBefore(intervals.get(9))) {
+                    data[9] = data[9] + (trip.getDistance() == null ? 0d : trip.getDistance());
+                } else if(trip.getBookingDate().isAfter(intervals.get(9)) && trip.getBookingDate().isBefore(intervals.get(10))) {
+                    data[10] = data[10] + (trip.getDistance() == null ? 0d : trip.getDistance());
+                } else if(trip.getBookingDate().isAfter(intervals.get(10)) && trip.getBookingDate().isBefore(intervals.get(11))) {
+                    data[11] = data[11] + (trip.getDistance() == null ? 0d : trip.getDistance());
+                }
+            }
+        }
+        return "[" + data[0] + ", " + data[1] + ", " + data[2] + ", " + data[3] + ", " + data[4] + ", " + data[5] + ", " + data[6] + ", " + data[7] + ", " + data[8] + ", " + data[9] + ", " + data[10] + ", " + data[11] + "]";
+    }
+
+    private String calculateSprintDistances(List<Trip> trips) {
+        DateTime year = new DateTime().dayOfYear().withMinimumValue().withTimeAtStartOfDay();
+        List<DateTime> intervals = getIntervals();
+
+
+
+
+        Double totalDistance = 0d;
+        Double totalDistanceSprint = 0d;
+        Double totalDistanceTour = 0d;
+        Double totalDistanceOcean = 0d;
+
+        Double totalDistanceYTD = 0d;
+        Double totalDistanceYTDFSprint = 0d;
+        Double totalDistanceYTDFTour = 0d;
+        Double totalDistanceYTDFOcean = 0d;
+
+        Double sprint[] = { 0d, 0d, 0d, 0d, 0d, 0d, 0d, 0d, 0d, 0d, 0d, 0d };
+        for(Trip trip : trips) {
+            totalDistance = totalDistance + (trip.getDistance() == null ? 0d : trip.getDistance());
+            if(trip.getKayak().getType().equalsIgnoreCase("kap")) {
+                totalDistanceSprint = totalDistanceSprint + (trip.getDistance() == null ? 0d : trip.getDistance());
+            } else if(trip.getKayak().getType().equalsIgnoreCase("tur")) {
+                totalDistanceTour = totalDistanceTour + (trip.getDistance() == null ? 0d : trip.getDistance());
+            } else {
+                totalDistanceOcean = totalDistanceOcean +(trip.getDistance() == null ? 0d : trip.getDistance());
+            }
+            if(trip.getBookingDate().isBefore(year) || trip.getKayak().getType().equalsIgnoreCase("hav") || trip.getKayak().getType().equalsIgnoreCase("tur")) {
+                continue;
+            }
+
+            if(trip.getBookingDate().isAfter(year) && trip.getBookingDate().isBefore(intervals.get(0))) {
+                sprint[0] = sprint[0] + (trip.getDistance() == null ? 0d : trip.getDistance());
+            } else if(trip.getBookingDate().isAfter(intervals.get(0)) && trip.getBookingDate().isBefore(intervals.get(1))) {
+                sprint[1] = sprint[1] + (trip.getDistance() == null ? 0d : trip.getDistance());
+            } else if(trip.getBookingDate().isAfter(intervals.get(1)) && trip.getBookingDate().isBefore(intervals.get(2))) {
+                sprint[2] = sprint[2] + (trip.getDistance() == null ? 0d : trip.getDistance());
+            } else if(trip.getBookingDate().isAfter(intervals.get(2)) && trip.getBookingDate().isBefore(intervals.get(3))) {
+                sprint[3] = sprint[3] + (trip.getDistance() == null ? 0d : trip.getDistance());
+            } else if(trip.getBookingDate().isAfter(intervals.get(3)) && trip.getBookingDate().isBefore(intervals.get(4))) {
+                sprint[4] = sprint[4] + (trip.getDistance() == null ? 0d : trip.getDistance());
+            } else if(trip.getBookingDate().isAfter(intervals.get(4)) && trip.getBookingDate().isBefore(intervals.get(5))) {
+                sprint[5] = sprint[5] + (trip.getDistance() == null ? 0d : trip.getDistance());
+            } else if(trip.getBookingDate().isAfter(intervals.get(5)) && trip.getBookingDate().isBefore(intervals.get(6))) {
+                sprint[6] = sprint[6] + (trip.getDistance() == null ? 0d : trip.getDistance());
+            } else if(trip.getBookingDate().isAfter(intervals.get(6)) && trip.getBookingDate().isBefore(intervals.get(7))) {
+                sprint[7] = sprint[7] + (trip.getDistance() == null ? 0d : trip.getDistance());
+            } else if(trip.getBookingDate().isAfter(intervals.get(7)) && trip.getBookingDate().isBefore(intervals.get(8))) {
+                sprint[8] = sprint[8] + (trip.getDistance() == null ? 0d : trip.getDistance());
+            } else if(trip.getBookingDate().isAfter(intervals.get(8)) && trip.getBookingDate().isBefore(intervals.get(9))) {
+                sprint[9] = sprint[9] + (trip.getDistance() == null ? 0d : trip.getDistance());
+            } else if(trip.getBookingDate().isAfter(intervals.get(9)) && trip.getBookingDate().isBefore(intervals.get(10))) {
+                sprint[10] = sprint[10] + (trip.getDistance() == null ? 0d : trip.getDistance());
+            } else if(trip.getBookingDate().isAfter(intervals.get(10)) && trip.getBookingDate().isBefore(intervals.get(11))) {
+                sprint[11] = sprint[11] + (trip.getDistance() == null ? 0d : trip.getDistance());
+            }
+        }
+        return "[" + sprint[0] + ", " + sprint[1] + ", " + sprint[2] + ", " + sprint[3] + ", " + sprint[4] + ", " + sprint[5] + ", " + sprint[6] + ", " + sprint[7] + ", " + sprint[8] + ", " + sprint[9] + ", " + sprint[10] + ", " + sprint[11] + "]";
+
+    }
+
 
 }

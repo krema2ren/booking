@@ -77,7 +77,7 @@ public class TestController {
 
         Trip trip = new Trip();
         trip.setDistance(destination.getDistance());
-        trip.setBookingDate(new DateTime(createRandomDate()));
+        trip.setBookingDate(createRandomDate());
         trip.setReturnDate(new DateTime(trip.getBookingDate()).plusHours((int) Math.round(48*Math.random())));
         trip.setKayak(kayak);
         List<Person> personList = new ArrayList<Person>();
@@ -88,15 +88,10 @@ public class TestController {
         tripRepository.save(trip);
     }
 
-    private Date createRandomDate() {
-        try {
-            long start = new SimpleDateFormat("yyyy").parse("2015").getTime();
-            final long millisInYear = 1000 * 60 * 60 * 24 * 365;
-            long millis = Math.round(millisInYear * Math.random());
-            return new Date(millis);
-        } catch (ParseException e) {
-            logger.debug(e.getMessage());
-        }
-        return new Date();
+    private DateTime createRandomDate() {
+        Random random = new Random();
+        random.setSeed(new Date().getTime());
+        DateTime dt = new DateTime().dayOfYear().withMinimumValue().withTimeAtStartOfDay();
+        return dt.plusMinutes(random.nextInt(60*24*365));
     }
 }

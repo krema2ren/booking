@@ -113,7 +113,7 @@ public class Trip implements Serializable {
         int idx = 0;
         for(Person p : persons) {
             s = s + "    <div class=\"media\" style=\"" + (idx == 0 ? "margin-left: -8px;" : "margin-top: -5px; margin-left: -8px;") + "\">\n" +
-                    "        <img class=\"media-object custom-media\" src=\"" + (p.getFacebookProfileId() == null ? (p.isFemale() ? "resources/images/woman.jpg\">\n" : "resources/images/man.jpg\">\n") : "//graph.facebook.com/" + p.getFacebookProfileId() + "/picture\">\n") +
+                    "        <img class=\"media-object custom-media\" src=\"" + (p.getFacebookProfileId() == null || p.getFacebookProfileId().isEmpty() ? (p.isFemale() ? "resources/images/woman.jpg\">\n" : "resources/images/man.jpg\">\n") : "//graph.facebook.com/" + p.getFacebookProfileId() + "/picture\">\n") +
                     "        <div class=\"media-body\">\n" +
                     "            <b>" + p.getName() + " [ " + bookingDate.toString(DateTimeFormat.forPattern("dd/MM HH:mm")) + " - " + returnDate.toString(DateTimeFormat.forPattern("HH:mm")) + " ]</b> <br>\n" +
                     "            <small>" + destination.getName() + "</small><br>\n" +
