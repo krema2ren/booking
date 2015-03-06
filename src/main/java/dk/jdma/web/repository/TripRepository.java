@@ -18,4 +18,6 @@ public interface TripRepository extends CrudRepository<Trip, Long> {
 
     List<Trip> findByPersons(List<Person> persons);
 
+
+
 }

@@ -20,14 +20,18 @@
 
 <button type="button"  class="btn btn-fixed-width-trip btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
     <div class="media">
-        <a class="" href="#">
-            <img class="media-object custom-media" src="//graph.facebook.com/krema2ren/picture">
-        </a>
         <div class="media-body">
-            <b>Dennis Nielsen [ 19:00 - 23:00 ]</b> <br>
-            <small>3. Hus Strøby Egede 21km</small><br>
-            <small>13-1 Tirana Tur B KKKK</small><br>
+            <b>Dennis Nielsen</b> <br>
+            <small>Prins Buris Vej 15, 4653 Karise</small><br>
+            <small>Mobil: +45 2948 2539</small><br>
+            <small>Telefon: +45 2948 2539</small><br>
+            <small>Mail: dennis@jdma.dk</small><br>
+            <small>Født: 1973-09-02</small><br>
+            <small>Oprette: 2013-04-01</small><br>
         </div>
+        <a class="" href="http://facebook.com/krema2ren" style="float: right">
+            <img class="media-object custom-media" style="margin-top: 8px" src="//graph.facebook.com/krema2ren/picture">
+        </a>
     </div>
 </button>
 

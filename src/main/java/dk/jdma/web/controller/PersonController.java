@@ -19,10 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Controller
 public class PersonController {
@@ -85,10 +83,22 @@ public class PersonController {
         FilterForm filterForm = new FilterForm();
         filterForm.setFilter(filter != null ? filter : "");
         mv.addObject(filterForm);
-        mv.addObject("sprint", generateDistanceDataSet(trips, "kap"));
-        mv.addObject("tour", generateDistanceDataSet(trips, "tur"));
-        mv.addObject("ocean", generateDistanceDataSet(trips, "hav"));
-        mv.addObject("sum", generateDistanceDataSet(trips, ""));
+        List<Double> data = generateDistanceDataSet(trips, "kap");
+        mv.addObject("sprintTotal", data.get(12));
+        mv.addObject("sprint", convertDataSetToString(data));
+        data = generateDistanceDataSet(trips, "tur");
+        mv.addObject("tourTotal", data.get(12));
+        mv.addObject("tour", convertDataSetToString(data));
+        data = generateDistanceDataSet(trips, "hav");
+        mv.addObject("oceanTotal", data.get(12));
+        mv.addObject("ocean", convertDataSetToString(data));
+        data = generateDistanceDataSet(trips, "");
+        mv.addObject("sumTotal", data.get(12));
+        mv.addObject("sum", convertDataSetToString(data));
+        mv.addObject("year", new SimpleDateFormat("yyyy").format(new Date()));
+        List<Long> ranking = personRepository.findRanking();
+
+
         log.debug(mv.toString());
         return mv;
     }
@@ -138,10 +148,14 @@ public class PersonController {
     }
 
 
-    private String generateDistanceDataSet(List<Trip> trips, String type) {
+    private String convertDataSetToString(List<Double> data) {
+        return "[" + data.get(0) + ", " + data.get(1) + ", " + data.get(2) + ", " + data.get(3) + ", " + data.get(4) + ", " + data.get(5) + ", " + data.get(6) + ", " + data.get(7) + ", " + data.get(8) + ", " + data.get(9) + ", " + data.get(10) + ", " + data.get(11) + "]";
+    }
+
+    private  List<Double>  generateDistanceDataSet(List<Trip> trips, String type) {
         DateTime year = new DateTime().dayOfYear().withMinimumValue().withTimeAtStartOfDay();
         List<DateTime> intervals = getIntervals();
-        Double data[] = { 0d, 0d, 0d, 0d, 0d, 0d, 0d, 0d, 0d, 0d, 0d, 0d };
+        Double data[] = { 0d, 0d, 0d, 0d, 0d, 0d, 0d, 0d, 0d, 0d, 0d, 0d, 0d };
         for(Trip trip : trips) {
             if((trip.getBookingDate().isAfter(year) && type.equalsIgnoreCase(trip.getKayak().getType())) || (trip.getBookingDate().isAfter(year) && type.isEmpty())) {
                 if(trip.getBookingDate().isAfter(year) && trip.getBookingDate().isBefore(intervals.get(0))) {
@@ -171,7 +185,12 @@ public class PersonController {
                 }
             }
         }
-        return "[" + data[0] + ", " + data[1] + ", " + data[2] + ", " + data[3] + ", " + data[4] + ", " + data[5] + ", " + data[6] + ", " + data[7] + ", " + data[8] + ", " + data[9] + ", " + data[10] + ", " + data[11] + "]";
+        Double sum = 0d;
+        for(Double d : data) {
+            sum = sum + d;
+        }
+        data[12] = sum;
+        return Arrays.asList(data);
     }
 
     private String calculateSprintDistances(List<Trip> trips) {

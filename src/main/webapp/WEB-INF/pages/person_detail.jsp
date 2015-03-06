@@ -121,10 +121,35 @@
         </div>
         <div class="col-sm-1">
         </div>
-        <div class="col-sm-8">
+        <div class="col-sm-6">
+            <h1 style="color: #777;">Oversigt ${year} - ${person.name}</h1>
             <canvas id="myChart"></canvas>
+
+            <div class="col-sm-9">
+                <div class="progress">
+                    <div class="progress-bar progress-bar-danger" style="width: 100%; text-align: left; font-weight: bold;"><span style="position: absolute; text-align: center; padding-top: 1px;">&nbsp;&nbsp;&nbsp;&nbsp;Total ${sumTotal} km&nbsp;&nbsp;-&nbsp;&nbsp;100%<span>
+                    </div>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-success" style="width: ${oceanTotal / sumTotal * 100}%; text-align: left; font-weight: bold"><span style="position: absolute; text-align: center; padding-top: 1px;">&nbsp;&nbsp;&nbsp;&nbsp;Hav ${oceanTotal} km&nbsp;&nbsp;-&nbsp;&nbsp;<fmt:formatNumber value="${oceanTotal / sumTotal * 100}" maxFractionDigits="1" />%</span>
+                    </div>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar" style="width: ${tourTotal / sumTotal * 100}%;text-align: left; font-weight: bold"><span style="position: absolute; text-align: center; padding-top: 1px;">&nbsp;&nbsp;&nbsp;&nbsp;Tur ${tourTotal} km&nbsp;&nbsp;-&nbsp;&nbsp;<fmt:formatNumber value="${tourTotal / sumTotal * 100}"  maxFractionDigits="1" />%</span>
+                    </div>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-warning" style="width: ${sprintTotal / sumTotal * 100}%; text-align: left; font-weight: bold"><span style="position: absolute; text-align: center; padding-top: 1px;">&nbsp;&nbsp;&nbsp;&nbsp;Kap ${sprintTotal} km&nbsp;&nbsp;-&nbsp;&nbsp;<fmt:formatNumber value="${sprintTotal / sumTotal * 100}"  maxFractionDigits="1" /> %</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-1">
+            <h1 style="color: #777;">Placering</h1>
         </div>
     </div>
+
 </div>
 
 
@@ -250,10 +275,10 @@
             datasets: [
                 {
                     label: "Total",
-                    fillColor: "rgba(145,145,145,0.5)",
-                    strokeColor: "rgba(145,145,145,0.8)",
-                    highlightFill: "rgba(145,145,145,0.75)",
-                    highlightStroke: "rgba(145,145,145,1)",
+                    fillColor: "rgba(215,84,82,0.5)",
+                    strokeColor: "rgba(215,84,82,0.8)",
+                    highlightFill: "rgba(215,84,82,0.75)",
+                    highlightStroke: "rgba(215,84,82,1)",
                     data: ${sum}
                 },
                 {
@@ -292,8 +317,11 @@
             scaleShowVerticalLines: true,
             barShowStroke : true,
             barStrokeWidth : 2,
-            barValueSpacing : 5,
-            barDatasetSpacing : 1
+            barValueSpacing : 10,
+            barDatasetSpacing : 1,
+            multiTooltipTemplate: function(valuesObject){
+                return valuesObject.datasetLabel + " : " + valuesObject.value + " km";
+            }
 
         });
 

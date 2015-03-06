@@ -154,7 +154,28 @@ public class Person implements Serializable {
 
     @Override
     public String toString() {
-        return "<p align=\"left\"><u><b>" + name + "</u></b><br/>" + address + "<br/>Mobil: " + mobile + "<br/>Telefon: " + phone + "<br/>Mail: " + email + "<br/>Født: " + dayOfBirth.toString() + "<br/>Oprettet: " + created.toString() + "</p>";
+        // return "<p align=\"left\"><u><b>" + name + "</u></b><br/>" + address + "<br/>Mobil: " + mobile + "<br/>Telefon: " + phone + "<br/>Mail: " + email + "<br/>Født: " + dayOfBirth.toString() + "<br/>Oprettet: " + created.toString() + "</p>";
+        return html();
+    }
+
+
+    public String html() {
+        return  "<button type=\"button\"  class=\"btn btn-fixed-width-trip btn-success dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"false\">" +
+                "    <div class=\"media\">" +
+                "        <div class=\"media-body\">" +
+                "            <b>" + name  + "</b> <br>" +
+                "            <small>" + address + "</small><br>" +
+                "            <small>Mobil: " + mobile + "</small><br>" +
+                "            <small>Telefon: " + phone + "</small><br>" +
+                "            <small>Mail: " + email + "</small><br>" +
+                "            <small>Født: " + dayOfBirth.toString() + "</small><br>" +
+                "            <small>Oprette: " + created.toString() + "</small><br>" +
+                "        </div>" +
+                "        <a class=\"\" href=\"#\" style=\"float: right\">" +
+                "            <img class=\"media-object custom-media\" style=\"margin-top: 8px\" src=\"" + (getFacebookProfileId() == null || getFacebookProfileId().isEmpty() ? (isFemale() ? "resources/images/woman.jpg\">\n" : "resources/images/man.jpg\">\n") : "//graph.facebook.com/" + getFacebookProfileId() + "/picture\">") +
+                "        </a>" +
+                "    </div>" +
+                "</button>";
     }
 
     @Override

@@ -72,19 +72,23 @@
     <c:forEach items="${persons}" var="person">
         <fmt:formatDate value="${person.dayOfBirth}" pattern="yyyy" var="birthYear" />
 
-        <div class="btn-group">
+
+
+
             <c:choose>
                 <c:when test="${birthYear > 1997}">
-                    <a role="button" href="person_detail.html?id=${person.id}&filter=${filterForm.filter}" class="btn-fixed-width-trip btn btn-success">${person}</a>
+                    <a shref="person_detail.html?id=${person.id}&filter=${filterForm.filter}">${person}</a>
                 </c:when>
                 <c:when test="${birthYear < 1954}">
-                    <a role="button" href="person_detail.html?id=${person.id}&filter=${filterForm.filter}" class="btn-fixed-width-trip btn btn-warning">${person}</a>
+                    <a href="person_detail.html?id=${person.id}&filter=${filterForm.filter}">${person}</a>
                 </c:when>
                 <c:otherwise>
-                    <a role="button" href="person_detail.html?id=${person.id}&filter=${filterForm.filter}" class="btn-fixed-width-trip btn btn-primary">${person}</a>
+                    <a href="person_detail.html?id=${person.id}&filter=${filterForm.filter}">${person}</a>
                 </c:otherwise>
             </c:choose>
-        </div>
+
+
+
     </c:forEach>
 </div>
 </body>
