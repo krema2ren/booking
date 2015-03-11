@@ -37,6 +37,9 @@ public class Kayak implements Serializable {
     @NotEmpty
     private String owner;
 
+    @Transient
+    private Double distance = 0d;
+
 
     public Kayak() {
     }
@@ -100,6 +103,10 @@ public class Kayak implements Serializable {
     public String getTagName() {
         return location + " " + name + " " + type + " " + level + " " + owner;
     }
+
+    public Double getDistance() { return distance; }
+
+    public void setDistance(Double distance) { this.distance = distance; }
 
     @Override
     public String toString() {

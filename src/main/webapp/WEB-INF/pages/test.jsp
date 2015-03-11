@@ -18,7 +18,7 @@
 
 <h1>TEST</h1>
 
-<button type="button"  class="btn btn-fixed-width-trip btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+<button type="button" class="btn btn-fixed-width-trip btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
     <div class="media">
         <div class="media-body">
             <b>Dennis Nielsen</b> <br>

@@ -92,6 +92,8 @@ public class TestController {
         Random random = new Random();
         random.setSeed(new Date().getTime());
         DateTime dt = new DateTime().dayOfYear().withMinimumValue().withTimeAtStartOfDay();
-        return dt.plusMinutes(random.nextInt(60*24*365));
+        DateTime now = DateTime.now();
+        Long s = (now.getMillis() - dt.getMillis()) / 60000;
+        return dt.plusMinutes(random.nextInt(s.intValue()));
     }
 }

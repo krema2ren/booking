@@ -10,7 +10,6 @@ public class BookingForm {
     @NotEmpty(message = "Du skal vælge et navn.")
     private String personName;
 
-    @NotEmpty(message = "Du skal vælge en destination.")
     private String destination;
 
     public BookingForm() {

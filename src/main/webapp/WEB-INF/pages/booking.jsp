@@ -16,7 +16,7 @@
 <!---------------->
 <!-- Navigation -->
 <!---------------->
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default" style="margin-top: -50px; height: 53px;">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <%--<div class="navbar-header">--%>
@@ -32,10 +32,10 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class=""><a href="/trip">Reservationer<span class="sr-only">(current)</span></a></li>
+                <li class=""><a href="/trip">Turer<span class="sr-only">(current)</span></a></li>
                 <li><a href="/trip/kayaks">Kajakker</a></li>
                 <li><a href="/trip/persons">Medlemmer</a></li>
-                <li><a href="/trip/admin">Admin</a></li>
+                <%--<li><a href="/trip/admin">Admin</a></li>--%>
             </ul>
 
             <ul class="nav navbar-nav navbar-collapse">
@@ -100,7 +100,8 @@
 <!----------------------->
 <!-- Show all trips -->
 <!----------------------->
-<div class="container-fluid col-lg-offset-1">
+<img src="resources/images/waves.jpg" style="margin-top: -25px;">
+<div class="container-fluid col-lg-offset-1" style="margin-top: -100px;">
     <c:forEach items="${tripList}" var="trip">
         <div class="btn-group">
             <c:choose>
@@ -120,7 +121,7 @@
                     <li><a data-toggle="modal" data-target="#addPersonModal" data-trip-id="${trip.id}">Tilføj Person</a></li>
                 </c:if>
                 <li class="divider"></li>
-                <li><a href="delete_booking.html?id=${trip.id}">Slet</a></li>
+                <li><a href="delete_trip.html?id=${trip.id}">Slet</a></li>
             </ul>
         </div>
     </c:forEach>

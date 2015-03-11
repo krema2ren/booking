@@ -14,6 +14,6 @@ public interface PersonRepository extends CrudRepository<Person, Long> {
 
    // @Query("select id from (select persons, sum(distance) as total from trip inner join trip_persons on id=trip group by persons) a inner join person on id=a.persons order by total)")
     @Query(value ="select persons, sum(distance) as total from trip inner join trip_persons on id=trip group by persons order by total desc", nativeQuery = true)
-    List<Long> findRanking();
+    List<Object> findRanking();
 
 }

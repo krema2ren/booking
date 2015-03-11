@@ -5,10 +5,9 @@ import dk.jdma.web.repository.TripRepository;
 import dk.jdma.web.repository.DestinationRepository;
 import dk.jdma.web.repository.KayakRepository;
 import dk.jdma.web.repository.PersonRepository;
-import dk.jdma.web.web.AddPersonForm;
-import dk.jdma.web.web.BookingForm;
-import dk.jdma.web.web.FinishForm;
+import dk.jdma.web.web.*;
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,8 +70,8 @@ public class BookingController {
 		return filter(tagName, findAllDestinations());
 	}
 
-    @RequestMapping(value = "/delete_booking.html", method = RequestMethod.GET)
-    public ModelAndView deleteBooking(@RequestParam String id) {
+    @RequestMapping(value = "/delete_trip.html", method = RequestMethod.GET)
+    public ModelAndView deleteTrip(@RequestParam String id) {
         tripRepository.delete(Long.parseLong(id));
         return new ModelAndView(new RedirectView("/trip"));
     }
@@ -110,16 +109,17 @@ public class BookingController {
                 if(data.length > 0 && data[data.length-1].contains("km")) {
                     String km = data[data.length-1].replace("km", "");
                     destination.setDistance(Double.parseDouble(km.trim()));
+                } else {
+                    destination.setDistance(0d);
                 }
                 destinationRepository.save(destination);
             } else {
-                // TODO: set default destination
+                destination = destinationRepository.findDefaultDestination();
             }
-
         }
         Trip trip = new Trip();
         trip.setBookingDate(DateTime.now());
-        trip.setReturnDate(new DateTime(trip.getBookingDate()).plusHours(destination.getDistance().intValue()/3));
+        trip.setReturnDate(new DateTime(trip.getBookingDate()).plusHours(destination.getDistance().intValue() == 0 ? 2 : destination.getDistance().intValue()/3));
         trip.setKayak(kayak);
         List<Person> persons = new ArrayList<Person>();
         persons.add(person);

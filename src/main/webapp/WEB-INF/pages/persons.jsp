@@ -21,7 +21,7 @@
 <!---------------->
 <!-- Navigation -->
 <!---------------->
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default" style="margin-top: -50px; height: 53px;">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -37,10 +37,10 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class=""><a href="/trip">Reservationer<span class="sr-only">(current)</span></a></li>
+                <li class=""><a href="/trip">Turer<span class="sr-only">(current)</span></a></li>
                 <li><a href="/trip/kayaks">Kajakker</a></li>
                 <li><a href="/trip/persons">Medlemmer</a></li>
-                <li><a href="/trip/admin">Admin</a></li>
+                <%--<li><a href="/trip/admin">Admin</a></li>--%>
             </ul>
 
             <ul class="nav navbar-nav navbar-collapse">
@@ -73,22 +73,52 @@
         <fmt:formatDate value="${person.dayOfBirth}" pattern="yyyy" var="birthYear" />
 
 
+        <c:choose>
+            <c:when test="${birthYear > 1997}">
+                <button onclick="location.href='person_detail.html?id=${person.id}&filter=${filterForm.filter}'" type="button" class="btn btn-success btn-fixed-width-trip dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            </c:when>
+            <c:when test="${birthYear < 1954}">
+                <button onclick="location.href='person_detail.html?id=${person.id}&filter=${filterForm.filter}'" type="button" class="btn btn-primary btn-fixed-width-trip dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            </c:when>
+            <c:otherwise>
+                <button onclick="location.href='person_detail.html?id=${person.id}&filter=${filterForm.filter}'" type="button" class="btn btn-warning btn-fixed-width-trip dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            </c:otherwise>
+        </c:choose>
 
-
-            <c:choose>
-                <c:when test="${birthYear > 1997}">
-                    <a shref="person_detail.html?id=${person.id}&filter=${filterForm.filter}">${person}</a>
-                </c:when>
-                <c:when test="${birthYear < 1954}">
-                    <a href="person_detail.html?id=${person.id}&filter=${filterForm.filter}">${person}</a>
-                </c:when>
-                <c:otherwise>
-                    <a href="person_detail.html?id=${person.id}&filter=${filterForm.filter}">${person}</a>
-                </c:otherwise>
-            </c:choose>
-
-
-
+            <div class="media">
+                <div class="media-body">
+                    <b><u>${person.name}</u></b> <br>
+                    <small>${person.address}</small><br>
+                    <small>Mobil: ${person.mobile}</small><br>
+                    <small>Telefon: ${person.phone}</small><br>
+                    <small>Mail: <a style="color: #ffffff" href="mailto:${person.email}">${person.email}</a></small><br>
+                    <small>Født: ${person.dayOfBirth}</small><br>
+                    <small style="float: left">Oprette: ${person.created}</small><br>
+                </div>
+                <div style="float: right">
+                    <a>
+                        <c:if test="${empty person.facebookProfileId}">
+                            <c:if test="${person.female}">
+                                <img class="media-object custom-media" style="margin-top: 8px; float: right;" src="resources/images/woman.jpg">
+                            </c:if>
+                            <c:if test="${not person.female}">
+                                <img class="media-object custom-media" style="margin-top: 8px; float: right;" src="resources/images/man.jpg">
+                            </c:if>
+                        </c:if>
+                        <c:if test="${not empty person.facebookProfileId}">
+                            <img class="media-object custom-media" style="margin-top: 8px; float: right;" src="//graph.facebook.com/${person.facebookProfileId}/picture">
+                        </c:if>
+                    </a><br><br><br><br>
+                    <c:if test="${person.ranking == 2147483647}">
+                        <small>Placering: -</small><br>
+                    </c:if>
+                    <c:if test="${person.ranking != 2147483647}">
+                        <small>Placering: ${person.ranking}</small><br>
+                    </c:if>
+                    <small>Distance: <fmt:formatNumber maxFractionDigits="1" minFractionDigits="1" value="${person.distance}"/> km</small>
+                </div>
+            </div>
+        </button>
     </c:forEach>
 </div>
 </body>
