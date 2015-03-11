@@ -37,6 +37,9 @@ public class Kayak implements Serializable {
     @NotEmpty
     private String owner;
 
+    @Column(columnDefinition = "tinyint")
+    private boolean maintenance = false;
+
     @Transient
     private Double distance = 0d;
 
@@ -103,6 +106,10 @@ public class Kayak implements Serializable {
     public String getTagName() {
         return location + " " + name + " " + type + " " + level + " " + owner;
     }
+
+    public boolean isMaintenance() { return maintenance; }
+
+    public void setMaintenance(boolean maintenance) { this.maintenance = maintenance; }
 
     public Double getDistance() { return distance; }
 

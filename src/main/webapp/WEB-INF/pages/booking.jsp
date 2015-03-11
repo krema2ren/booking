@@ -111,12 +111,16 @@
                 <c:when test="${fn:containsIgnoreCase(trip.kayak.type, 'hav')}">
                     <button type="button"  class="btn-fixed-width-trip btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">${trip}</button>
                 </c:when>
+                <c:when test="${trip.kayak.maintenance}">
+                    <button type="button"  class="btn-fixed-width-trip btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">${trip}</button>
+                </c:when>
                 <c:otherwise>
                     <button type="button"  class="btn-fixed-width-trip btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">${trip}</button>
                 </c:otherwise>
             </c:choose>
             <ul class="dropdown-menu" role="menu">
                 <li><a data-toggle="modal" data-target="#finishModal" data-trip-id="${trip.id}" data-distance-id="${trip.destination.distance}">Afslut</a></li>
+                <li><a data-toggle="modal" data-target="#maintenanceModal" data-kayak-id="${trip.kayak.id}">Fejlmeld</a></li>
                 <c:if test="${trip.kayak.seats > fn:length(trip.persons)}">
                     <li><a data-toggle="modal" data-target="#addPersonModal" data-trip-id="${trip.id}">Tilføj Person</a></li>
                 </c:if>
@@ -158,7 +162,7 @@
 
 
 <!---------------------------------->
-<!-- Finish trip modal  -->
+<!-- Finish trip modal            -->
 <!---------------------------------->
 <div class="modal fade" id="finishModal" aria-hidden="true">
     <form:form class="" method="POST" action="/finish.html" commandName="finishForm" acceptCharset="utf-8">
@@ -185,6 +189,33 @@
             </div>
         </div>
     </div>
+    </form:form>
+</div>
+
+<!---------------------------------->
+<!-- Maintenance modal            -->
+<!---------------------------------->
+<div class="modal fade" id="maintenanceModal" aria-hidden="true">
+    <form:form class="" method="POST" action="/maintenance.html" commandName="maintenanceForm" acceptCharset="utf-8">
+        <form:input type="hidden" class="form-control" id="kayakId"  path="kayakId"/>
+        <div class="modal-dialog">
+            <div class="">
+                <div class="">
+                    <fieldset>
+                        <div class="form-group">
+                            <div>
+                                <form:input type="textfield" class="form-control" id="description"  path="description"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div>
+                                <input type="submit" class="btn btn-primary" id="maintenance" role="button" value="Opret"/>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
     </form:form>
 </div>
 
@@ -294,6 +325,12 @@ $(document).ready(function() {
         $("#finishModalDistanceId").focus();
         $("#finishModalDistanceId").val($(event.relatedTarget).data('distance-id'));
         $("#finishModalBookingId").val($(event.relatedTarget).data('trip-id'));
+    });
+
+    $('#maintenanceModal').on('show.bs.modal', function(event) {
+        $("#description").select();
+        $("#description").focus();
+        $("#kayakId").val($(event.relatedTarget).data('kayak-id'));
     });
 
 

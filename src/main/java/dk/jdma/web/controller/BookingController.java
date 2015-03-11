@@ -1,10 +1,7 @@
 package dk.jdma.web.controller;
 
 import dk.jdma.web.domain.*;
-import dk.jdma.web.repository.TripRepository;
-import dk.jdma.web.repository.DestinationRepository;
-import dk.jdma.web.repository.KayakRepository;
-import dk.jdma.web.repository.PersonRepository;
+import dk.jdma.web.repository.*;
 import dk.jdma.web.web.*;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -38,6 +35,9 @@ public class BookingController {
     @Autowired
     DestinationRepository destinationRepository;
 
+    @Autowired
+    MaintenanceRepository maintenanceRepository;
+
 	BookingController() {
 	}
 
@@ -49,6 +49,7 @@ public class BookingController {
         model.addObject(new BookingForm());
         model.addObject(new AddPersonForm());
         model.addObject(new FinishForm());
+        model.addObject(new MaintenanceForm());
 		return model;
 	}
 
@@ -141,6 +142,20 @@ public class BookingController {
         return new ModelAndView(new RedirectView("/trip"));
     }
 
+    @RequestMapping(value = "/maintenance.html", method = RequestMethod.POST)
+    public ModelAndView maintenance(@ModelAttribute @Validated MaintenanceForm maintenanceForm, BindingResult result) {
+        Kayak kayak = kayakRepository.findOne(maintenanceForm.getKayakId());
+        if(kayak != null) {
+            kayak.setMaintenance(true);
+            kayakRepository.save(kayak);
+            Maintenance maintenance = new Maintenance();
+            maintenance.setCreated(DateTime.now());
+            maintenance.setKayak(kayak);
+            maintenance.setDescription(maintenanceForm.getDescription());
+            maintenanceRepository.save(maintenance);
+        }
+        return new ModelAndView(new RedirectView("/trip"));
+    }
 
 	private List<Tag> filter(String tagName, List<Tag> list) {
 		List<Tag> result = new ArrayList<Tag>();
